@@ -1,0 +1,271 @@
+[
+    {
+        "screen": "resultdetails",
+        "api": "https://pi360.net/site/api/api_academic_results_details.php?institute_id=mietjammu&rs=",
+        "feilds": {
+            "Department FullName": "Department_FullName Result_Details",
+            "Batch": "Batch Result_Details",
+            "Semester": "Semester Result_Details",
+            "Result Date": "Result_Date Result_Details",
+            "Total Student Appeared": "Total_Student_Appeared Result_Details",
+            "Total Student Passed": "Total_Student_Passed Result_Details",
+            "Total Student Reappeared": "Total_Student_Reappeared Result_Details",
+            "Total Distinctions": "Total_Distinctions Result_Details",
+            "Ist Divisions": "Ist_Divisions: Result_Details",
+            "Second Divisions": "Second_Divisions Result_Details",
+            "Students with no backlogs": "Students_with_no_backlogs Result_Details",
+            "Result Submitted on": "Result_Submitted_on Result_Details",
+            "Details Submitted by": "Details_Submitted_by Result_Details"
+        }
+    },
+    {
+        "screen": "StaffAchievementsDetails",
+        "api": "https://pi360.net/site/api/api_staff_achievements_details.php?institute_id=mietjammu&rs=",
+        "feilds": {
+            "Department": "Department Department_Detail",
+            "Achievements": "Achievements Achievement_Detail",
+            "Description": "Description Achievement_Detail",
+            "Achievement Level": "Achievement_Level Achievement_Detail",
+            "People Involved": "People_Involved Achievement_Detail",
+            "Date": "Date Achievement_Detail"
+        }
+    },
+    {
+        "screen": "GuestLecturesDetails",
+        "api": "https://pi360.net/site/api/api_dept_guest_lectures_details.php?institute_id=mietjammu&rs=",
+        "feilds": {
+            "Department": "Department Department_Detail",
+            "Topics": "Topics Lecture_Detail",
+            "Lecture Type": "Lecture_Type Lecture_Detail",
+            "Guest Details(s)": "Guest_Details(s) Lecture_Detail",
+            "Institute Agency": "Institute_Agency Lecture_Detail",
+            "Details": "Details Lecture_Detail"
+        }
+    },
+    {
+        "screen": "IntellectualPropertyDetail",
+        "api": "https://pi360.net/site/api/api_intellectual_property_details.php?institute_id=mietjammu&rs=",
+        "feilds": {
+            "Title": "Patent_Title Patent_Details",
+            "IP Type": "_Utility patent",
+            "Country of Filing": "_India",
+            "Patent number": "Patent_Number Patent_Details",
+            "Abstract": "Abstract Patent_Details",
+            "Inventor(s)": "Inventor Inventor_Details",
+            "Status": "Status Patent_Details ",
+            "Filing Date": "Filing_Date Patent_Details",
+            "Issue Date": "Issue_Date Patent_Details"
+        }
+    },
+    {
+        "screen": "BookPublicationsDetails",
+        "api": "https://pi360.net/site/api/api_books_publication_details.php?%20institute_id=mietjammu&rs=",
+        "feilds": {
+            "Book Title ": "Book_Title Book_List",
+            "Detail": "Detail Book_List",
+            "Book Main Author": "Main_Author Book_List",
+            "Published On": "Published_On Book_List",
+            "Publisher Name": "Publisher_Name Book_List",
+            "Publisher Country": "Publisher_Country Book_List",
+            "ISBN": "ISBN Book_List",
+            "Main Author": "Main_Author Author_Details",
+            "Co Authors": "Co_Authors Author_Details"
+        }
+    },
+    {
+        "screen": "ConsultancyDetails",
+        "api": "https://pi360.net/site/api/api_consultancy_details.php? institute_id=mietjammu&rs=",
+        "feilds": {
+            "Organization Name": "Organization_Name Consultancy_Details",
+            "Organization Details": "Organization_Details Consultancy_Details",
+            "Organization Level": "Organization_Level Consultancy_Details ",
+            "Consultancy Provided": "Consultancy_Provided Consultancy_Details",
+            "Type": "Type Consultancy_Details",
+            "Started On": "Started_On Consultancy_Details",
+            "Consultants": "Consultants Consultant_Details",
+            "Ended On": "Ended_On Consultancy_Details "
+        }
+    },
+    {
+        "screen": "ProjectDetails",
+        "api": "https://pi360.net/site/api/api_project_details.php?%20institute_id=mietjammu&rs=",
+        "feilds": {
+            "Category": "Category Patent_Details",
+            "Project Title": "Grant_Title Patent_Details",
+            "Project Description": "Grant_Description Patent_Details",
+            "Granting Agency Name": "Granting_Agency_Name Patent_Details",
+            "Granting Amount": "Grant_Amount Patent_Details",
+            "Granting Agency Type": "Granting_Agency_Type Patent_Details",
+            "Principal Project Head": "Principal_Investigator Patent_Details",
+            "Coordinator Institute": "Patent_Details",
+            "Status": "Grant_Status Patent_Details",
+            "Inventor Principal Project Head": "Inventor Inventor_Details",
+            "Grant Status": " Grant_Status Patent_Details",
+            "Started On": "Started_On Patent_Details",
+            "Ended On": "Ended_On Patent_Details"
+        }
+    },
+    {
+        "screen": "ResearchDetails",
+        "api": "https://pi360.net/site/api/api_research_publications_details.php?%20institute_id=mietjammu&rs=",
+        "feilds": {
+            "Title": "ResearchTitle",
+            "Abstract": "Abstract",
+            "Author(s)": "Author",
+            "Status": "Status"
+        }
+    },
+    {
+        "screen": "ConferencesDetails",
+        "api": "https://pi360.net/site/api/api_staff_development_conference_details.php?institute_id=mietjammu&rs=",
+        "feilds": {
+            "Conference Name": "Conference_Name Conference_Detail",
+            "Conference Description": "Conference_Description Conference_Detail",
+            "Agency": "Agency Conference_Detail",
+            "Course Venue": "Course_Venue Conference_Detail",
+            "Duration": "Duration Conference_Detail"
+        }
+    },
+    {
+        "screen": "EcontentDetails",
+        "api": "https://pi360.net/site/api/api_staff_e_content_details.php?%20institute_id=mietjammu&rs=",
+        "feilds": {
+            "Module Name": "Module_Name Content_Detail",
+            "CreatedBy": "Content_Created_By Content_Detail",
+            "Platform": "Platform Content_Detail",
+            "Launched On": "Launched_On Content_Detail"
+        }
+    },
+    {
+        "screen": "ExtensionLecturesDetails",
+        "api": "https://pi360.net/site/api/api_staff_development_extension_lectures_details.php?institute_id=mietjammu&rs=",
+        "feilds": {
+            "Topic": "Topic Lecture_Detail",
+            "Faculty Name": "Faculty_Name Lecture_Detail",
+            "Venue": "Venue Lecture_Detail",
+            "Date": "Date Lecture_Detail"
+        }
+    },
+    {
+        "screen": "MembershipsDetails",
+        "api": "https://pi360.net/site/api/api_staff_memberships_details.php?institute_id=mietjammu&rs=",
+        "feilds": {
+            "Membership Body": "Membership_Body Membership_Detail",
+            "Membership Body Description": "Membership_Body_Description Membership_Detail",
+            "Staff Name": "Staff_Name Membership_Detail",
+            "Membership Level": "Membership_Level Membership_Detail",
+            "Membership Type": "Membership_Type Membership_Detail",
+            "Membership From": "Membership_From Membership_Detail",
+            "Membership To": "Membership_To Membership_Detail"
+        }
+    },
+    {
+        "screen": "SeminarsDetails",
+        "api": "https://pi360.net/site/api/api_staff_development_seminars_details.php?institute_id=mietjammu&rs=",
+        "feilds": {
+            "Seminar Name": "Seminar_Name Seminar_Detail",
+            "Seminar Description": "Seminar_Description Seminar_Detail",
+            "Mode": "Mode Seminar_Detail",
+            "Course Provider": "Course_Provider Seminar_Detail",
+            "Duration": "Duration Seminar_Detail",
+            "Total Duration Hours": "Total_Duration_Hours Seminar_Detail",
+            "Attened By": "Membership_To Attened_By"
+        }
+    },
+    {
+        "screen": "TrainingDetails",
+        "api": "https://pi360.net/site/api/api_staff_development_training_details.php?institute_id=mietjammu&rs=",
+        "feilds": {
+            "Training Name": "Training_Name Training_Detail",
+            "Training Description": "Training_Description Training_Detail",
+            "Mode": "Mode Training_Detail",
+            "Course Provider": "Course_Provider Training_Detail",
+            "Duration": "Duration Training_Detail",
+            "Total Duration Hours": "Total_Duration_Hours Training_Detail",
+            "Attened By": "Attened_By Training_Detail"
+        }
+    },
+    {
+        "screen": "WorkshopsDetails",
+        "api": "https://pi360.net/site/api/api_staff_development_workshops_details.php?institute_id=mietjammu&rs=",
+        "feilds": {
+            "Workshop Name": "Workshop_Name Workshop_Detail",
+            "Workshop Description": "Workshop_Description Workshop_Detail",
+            "Mode": "Mode Workshop_Detail",
+            "Course Provider": "Course_Provider Workshop_Detail",
+            "Duration": "Duration Workshop_Detail",
+            "Attened By": "Attened_By Workshop_Detail",
+            "Total Duration Hours": "Total_Duration_Hours Workshop_Detail"
+        }
+    },
+    {
+        "screen": "EntrepreneurshipDetails",
+        "api": "https://pi360.net/site/api/api_student_entrepreneurship_details.php?institute_id=mietjammu&rs=",
+        "feilds": {
+            "Student": "Student Student_Detail",
+            "Department": "Department Student_Detail",
+            "Student Batch": "Batch Student_Detail",
+            "Startup Name": "Startup_Name Startup_Detail",
+            "Startup Type": "Startup_Type Startup_Detail",
+            "Description": "Description Startup_Detail",
+            "Sector": "Sector Startup_Detail",
+            "Date of incubation": "Date_of_incubation Startup_Detail",
+            "Exteranl Funding Received": "Exteranl_Funding_Received Startup_Detail",
+            "Funding Raised": "Funding_Raised Startup_Detail",
+            "Website": "Website Startup_Detail",
+            "Funding Source": "Funding_Source Startup_Detail",
+            "Registered with Govt": "Registered_with_Govt_under_Startup_Scheme Startup_Detail",
+            "Selected by Professional incubator": "Selected_by_Professional_incubator Startup_Detail",
+            "Team Type": "Team_Type Startup_Detail",
+            "Location": "Location Startup_Detail"
+        }
+    },
+    {
+        "screen": "HigherStudiesDetails",
+        "api": "https://pi360.net/site/api/api_student_higher_studies_details.php?institute_id=mietjammu&rs=",
+        "feilds": {
+            "Student": "Student Student_Detail",
+            "Department": "Department Student_Detail",
+            "Student Batch": "Student_Batch Student_Detail",
+            "Institute Name": "Institute_Name Higher_Studies_Detail",
+            "Qualifying Exam": "Qualifying_Exam Higher_Studies_Detail",
+            "Status": "Status Higher_Studies_Detail",
+            "Admission Date": "Admission_Date Higher_Studies_Detail"
+        }
+    },
+    {
+        "screen": "InternshipsDetails",
+        "api": "https://pi360.net/site/api/api_student_internship_details.php?institute_id=mietjammu&rs=",
+        "feilds": {
+            "Student": "Student Student_Detail",
+            "Department": "Department Student_Detail",
+            "Company Name": "Company_Name Internship_Detail",
+            "Company Type": "Company_Type Internship_Detail",
+            "Company Sector": "Company_Sector Internship_Detail",
+            "Contact Person": "Contact_Person Internship_Detail",
+            "Mobile of Contact Person": "Mobile_of_Contact_Person Internship_Detail",
+            "Designation of Contact Person": "Designation_of_Contact_Person Internship_Detail",
+            "Start Date": "Start_Date Internship_Detail",
+            "End Date": "End_Date Internship_Detail"
+        }
+    },
+    {
+        "screen": "PlacementsDetails",
+        "api": "https://pi360.net/site/api/api_student_placement_details.php?institute_id=mietjammu&rs=",
+        "feilds": {
+            "Student": "Student Student_Detail",
+            "Department": "Department Student_Detail",
+            "Company Name": "Company_Name Placement_Detail",
+            "Company Type": "Company_Type Placement_Detail",
+            "LinkedIn ID": "LinkedIn_ID Placement_Detail",
+            "Mobile No": "Mobile_No Placement_Detail",
+            "Drive Type": "Drive_Type Placement_Detail",
+            "Location": "Location Placement_Detail",
+            "Job Profile": "Job_Profile Placement_Detail",
+            "Placement Date": "Placement_Date Placement_Detail",
+            "Contact Person": "Contact_Person Placement_Detail",
+            "Email ID": "EmailID Placement_Detail",
+            "Annual Salary": "Annual_Salary Placement_Detail"
+        }
+    }
+]
