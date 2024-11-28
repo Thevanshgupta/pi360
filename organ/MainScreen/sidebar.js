@@ -30,7 +30,7 @@ const Sidebar = ({ closeSidebar }) => {
     'Projects/Grants',
     'Consultancy/Corporate Training',
     'Book Publication',
-    'Research Guidance'
+    'Research Guidance',
   ];
 
   const staffDevOptions = ['Training', 'Workshops', 'Seminars', 'Conferences','Extension Lectures', 'Memberships','E-Content'];
@@ -262,7 +262,7 @@ const styles = StyleSheet.create({
   },
   optionText: {
     color: '#FFFFFF',
-    fontSize: 15
+    fontSize: 15,
   },
   accordionToggle: {
     flexDirection: 'row',
@@ -271,7 +271,7 @@ const styles = StyleSheet.create({
     paddingHorizontal: 10,
     marginVertical: 5,
     borderRadius: 6,
-    justifyContent: 'space-between', 
+    justifyContent: 'space-between',
   },
   accordionList: {
     paddingLeft: 20,
