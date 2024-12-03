@@ -45,13 +45,13 @@ const FormEngine = ({formData, formName}) => {
       }
     });
 
-    // if (missingFields.length > 0) {
-    //   Alert.alert(
-    //     'Missing Fields',
-    //     Please fill the following fields: ${missingFields.join(', ')},
-    //   );
-    //   return;
-    // }
+    if (missingFields.length > 0) {
+      Alert.alert(
+        'Missing Fields',
+        'Please fill the following fields: ${missingFields.join(', ')}',
+      );
+      return;
+    }
 
     const submitObject = [];
     Object.keys(formState).map(key => {
@@ -340,6 +340,4 @@ const styles = StyleSheet.create({
   },
 });
 
-export default FormEngine;  
-// make it more attractive, beautiful, pretty and sexy for industrial level
-
+export default FormEngine; 
