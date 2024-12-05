@@ -29,7 +29,6 @@ const LoginScreen = () => {
   };
 
   return (
- 
       <View style={styles.container}>
         <View style={styles.topContent}>
           <View style={styles.loginText}>
@@ -64,7 +63,6 @@ const LoginScreen = () => {
           </TouchableOpacity>
         </View>
       </View>
-   
   );
 };
 
