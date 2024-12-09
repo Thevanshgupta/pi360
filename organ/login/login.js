@@ -1,125 +1,178 @@
 import React, { useState } from 'react';
 import {
-  SafeAreaView,
-  StatusBar,
-  StyleSheet,
   View,
   Text,
-  Dimensions,
+  TextInput,
   TouchableOpacity,
   Image,
-  TextInput,
-  Button,
+  StyleSheet,
+  Alert,
 } from 'react-native';
-import LoginLogic from './logic';
-
-
+import Toast from 'react-native-simple-toast';
+import axios from 'axios';
+import { useNavigate } from 'react-router-native'; // Import useNavigate
 
 const LoginScreen = () => {
   const [email, setEmail] = useState('');
   const [password, setPassword] = useState('');
-
-  async function signinWithGoogle() {
-
-  }
+  const navigate = useNavigate(); // Access the navigation object
 
   // Function to handle email/password login
   const handleEmailLogin = async () => {
-    return pass
+    const result = await LoginLogic(email, password);
+    if (result?.token) {
+      navigate('/main'); // Navigate to MainScreen on successful login
+    }
+  };
+
+  // Function to handle Google login (dummy implementation)
+  const signinWithGoogle = async () => {
+    Alert.alert('Feature Not Implemented', 'Google login will be added soon.');
   };
 
   return (
-      <View style={styles.container}>
-        <View style={styles.topContent}>
-          <View style={styles.loginText}>
-            <Text style={styles.mainText}>Login To PI360</Text>
-          </View>
-          <View style={styles.inputContent}>
-            <TextInput
-              style={styles.input}
-              placeholder="Email"
-              onChangeText={(text) => setEmail(text)}
-            />
-            <TextInput
-              style={styles.input}
-              placeholder="Password"
-              onChangeText={(text) => setEmail(text)}
-            />
-            <TouchableOpacity style={styles.loginButtonStyle} onPress={handleEmailLogin} >
-              <Text style={styles.buttonText}>Login</Text>
-            </TouchableOpacity>
-          </View>
+    <View style={styles.container}>
+      <View style={styles.topContent}>
+        <View style={styles.loginText}>
+          <Text style={styles.mainText}>Login To PI360</Text>
         </View>
-        <View style={styles.bottomContent}>
-          <Text style={styles.googleOrText}>or login using</Text>
-          <TouchableOpacity style={styles.googleButton} onPress={signinWithGoogle}>
-            <Image
-              style={styles.googleIcon}
-              source={{
-                uri: 'https://i.ibb.co/j82DCcR/search.png',
-              }}
-            />
-            <Text style={styles.googleButtonText}>Sign in with Google</Text>
+        <View style={styles.inputContent}>
+          <TextInput
+            style={styles.input}
+            placeholder="Email"
+            value={email}
+            onChangeText={(text) => setEmail(text)}
+          />
+          <TextInput
+            style={styles.input}
+            placeholder="Password"
+            value={password}
+            secureTextEntry
+            onChangeText={(text) => setPassword(text)}
+          />
+          <TouchableOpacity
+            style={styles.loginButtonStyle}
+            onPress={handleEmailLogin}
+          >
+            <Text style={styles.buttonText}>Login</Text>
           </TouchableOpacity>
         </View>
       </View>
+      <View style={styles.bottomContent}>
+        <Text style={styles.googleOrText}>or login using</Text>
+        <TouchableOpacity style={styles.googleButton} onPress={signinWithGoogle}>
+          <Image
+            style={styles.googleIcon}
+            source={{
+              uri: 'https://i.ibb.co/j82DCcR/search.png',
+            }}
+          />
+          <Text style={styles.googleButtonText}>Sign in with Google</Text>
+        </TouchableOpacity>
+      </View>
+    </View>
   );
 };
 
+// Logic for API calls
+const LoginLogic = async (username, password) => {
+  try {
+    const response = await axios.post(
+      'https://pi360.net/site/api/api_login_user.php?institute_id=mietjammu',
+      {
+        username_1: username,
+        password_1: password,
+      },
+      {
+        headers: {
+          'Content-Type': 'application/json',
+        },
+      }
+    );
+
+    if (response.data.statusCode === 200) {
+      Toast.show('Login Successful');
+      console.log('Login Successful:', response.data.message);
+      console.log('Token:', response.data.token); // Log token
+      return response.data;
+    } else {
+      throw new Error(response.data.message || 'Login failed.');
+    }
+  } catch (error) {
+    Toast.show('Invalid credentials');
+    return null;
+  }
+};
+
+// Styles
 const styles = StyleSheet.create({
-  safeArea: {
-    backgroundColor: '#fff',
-  },
   container: {
-    height: Dimensions.get('window').height,
+    flex: 1,
+    backgroundColor: '#f0f8ff',
   },
   topContent: {
     flex: 2,
+    paddingHorizontal: 20,
+    justifyContent: 'center',
+    backgroundColor: '#87cefa',
+    borderBottomLeftRadius: 30,
+    borderBottomRightRadius: 30,
   },
   bottomContent: {
     flex: 1,
-    alignItems: "center",
-    justifyContent: "flex-start",
+    alignItems: 'center',
+    justifyContent: 'flex-start',
+    marginTop: 20,
   },
   mainText: {
-    fontSize: 30,
-    color: '#000',
+    fontSize: 32,
+    color: '#fff',
+    fontWeight: 'bold',
+    textAlign: 'center',
+    marginBottom: 20,
   },
   googleOrText: {
-    fontSize: 25,
+    fontSize: 18,
     marginBottom: 20,
-    color: '#000',
+    color: '#555',
   },
   googleButton: {
-    backgroundColor: 'white',
-    borderColor: '#000',
-    borderWidth: 1,
-    borderRadius: 40,
-    paddingHorizontal: 34,
-    paddingVertical: 16,
+    backgroundColor: '#fff',
+    borderRadius: 25,
+    paddingHorizontal: 30,
+    paddingVertical: 12,
     flexDirection: 'row',
     justifyContent: 'center',
     alignItems: 'center',
+    elevation: 5,
+    shadowColor: '#000',
+    shadowOffset: { width: 0, height: 2 },
+    shadowOpacity: 0.1,
+    shadowRadius: 4,
   },
   googleButtonText: {
     marginLeft: 16,
-    marginRight: 10,
-    fontSize: 18,
+    fontSize: 16,
     fontWeight: '600',
+    color: '#555',
   },
   googleIcon: {
     height: 24,
     width: 24,
   },
   input: {
-    width: '80%',
+    width: '85%',
     height: 50,
-    borderColor: 'black',
-    borderWidth: 1,
-    borderRadius: 8,
-    marginBottom: 12,
-    marginTop: 12,
-    paddingHorizontal: 8,
+    backgroundColor: '#fff',
+    borderRadius: 12,
+    paddingHorizontal: 16,
+    marginBottom: 15,
+    fontSize: 16,
+    shadowColor: '#000',
+    shadowOffset: { width: 0, height: 2 },
+    shadowOpacity: 0.1,
+    shadowRadius: 4,
+    elevation: 3,
   },
   inputContent: {
     flex: 2,
@@ -132,26 +185,24 @@ const styles = StyleSheet.create({
     justifyContent: 'center',
   },
   loginButtonStyle: {
-    backgroundColor: "#2d96f8",
-    borderColor: "#2d96f8",
-    borderWidth: 1,
-    borderStyle: "solid",
-    width: '80%',
-    borderRadius: 8,
-    borderWidth: 1,
-    borderRadius: 4,
-    paddingHorizontal: 32,
+    backgroundColor: '#1e90ff',
+    width: '85%',
+    borderRadius: 12,
     paddingVertical: 14,
-    flexDirection: 'row',
     justifyContent: 'center',
     alignItems: 'center',
-  }
-  ,
+    shadowColor: '#000',
+    shadowOffset: { width: 0, height: 4 },
+    shadowOpacity: 0.2,
+    shadowRadius: 4,
+    elevation: 4,
+    marginTop: 10,
+  },
   buttonText: {
     fontSize: 18,
-    color: 'white',
+    color: '#fff',
     fontWeight: 'bold',
-  }
+  },
 });
 
 export default LoginScreen;

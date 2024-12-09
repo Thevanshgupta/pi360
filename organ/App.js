@@ -19,8 +19,10 @@ const App = () => {
       <View style={styles.container}>
         <Router>
         <Routes>
-  <Route path="/" exact element={<MainScreen />} />
-  <Route path="/login" element={<LoginScreen />} />
+  <Route path="/" exact element={<LoginScreen />} />
+  {/* <Route path="/login" element={<MainScreen />} />
+   */}
+    <Route path="/main" element={<MainScreen />} />
   <Route path="/*" exact element={<DataEntryMainPage title="PI360" />} />
 </Routes>
         </Router>
