@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { useEffect, useState } from 'react';
 import {
   View,
   Text,
@@ -9,6 +9,8 @@ import {
 } from 'react-native';
 import Icon from 'react-native-vector-icons/FontAwesome6';
 import { useNavigate } from 'react-router-native';
+import { useAuth } from '../context/AuthContext';
+import AsyncStorage from '@react-native-async-storage/async-storage';
 
 const Sidebar = ({ closeSidebar }) => {
   const [isResearchOpen, setIsResearchOpen] = useState(false);
@@ -17,6 +19,7 @@ const Sidebar = ({ closeSidebar }) => {
   const [isAchievementsOpen, setIsAchievementsOpen] = useState(false);
   const [isAcademicsOpen, setIsAcademicsOpen] = useState(false);
   const [isNoticesOpen, setIsNoticesOpen] = useState(false);
+  
 
   const toggleResearch = () => setIsResearchOpen(!isResearchOpen);
   const toggleStaffDev = () => setIsStaffDevOpen(!isStaffDevOpen);
@@ -26,6 +29,13 @@ const Sidebar = ({ closeSidebar }) => {
   const toggleNotices = () => setIsNoticesOpen(!isNoticesOpen);
 
   const navigate = useNavigate();
+  const {logout} = useAuth()
+ 
+  function handelLogOut(){
+    AsyncStorage.removeItem("authToken");
+    logout();
+    navigate('/')
+  }
 
   const commonOptions = [
     { text: 'Research Publication', icon: 'book', navigateTo: '/data/ResearchList/' },
@@ -144,7 +154,10 @@ const Sidebar = ({ closeSidebar }) => {
                 <Icon name={isNoticesOpen ? 'caret-up' : 'caret-down'} size={16} color="#fff" />
               </TouchableOpacity>
               {isNoticesOpen && <View style={styles.accordionList}>{renderOptions(noticesOptions)}</View>}
-
+              <TouchableOpacity style={styles.closeButton} onPress={handelLogOut}>
+                <Icon name="times" size={16} color="#fff" />
+                <Text style={styles.closeButtonText}>Logout</Text>
+              </TouchableOpacity>
               <TouchableOpacity style={styles.closeButton} onPress={closeSidebar}>
                 <Icon name="times" size={16} color="#fff" />
                 <Text style={styles.closeButtonText}>Close</Text>

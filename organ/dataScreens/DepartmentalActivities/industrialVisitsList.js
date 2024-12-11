@@ -1,27 +1,38 @@
-import React, {useState, useEffect} from 'react';
-import {View, StyleSheet, Text, FlatList} from 'react-native';
+import React, { useState, useEffect } from 'react';
+import { View, StyleSheet, Text, FlatList, TouchableOpacity } from 'react-native';
 import axios from 'axios';
+import { useNavigate } from 'react-router-native';
+import Icon from 'react-native-vector-icons/FontAwesome';
 
-const Card = ({title, date, sno}) => (
-  <View style={styles.dataCard}>
-    <View style={styles.section1}>
-      <Text style={styles.section1.title}>{sno + 1}</Text>
+const Card = ({ title, date, sno, code }) => {
+  const navigate = useNavigate();
+  return (
+    <View style={styles.dataCard}>
+      <View style={styles.section1}>
+        <Text style={styles.section1.title}>{sno + 1}</Text>
+      </View>
+      <View style={styles.section2}>
+        <Text
+          onPress={() => {
+            navigate('/data/IndustrialVisitDetails/' + code);
+          }}
+          numberOfLines={3}
+          style={styles.section2.titleMain}>
+          {title}
+        </Text>
+      </View>
+      <View style={styles.section3}>
+        <Text style={styles.section3.titleMain}>{date}</Text>
+      </View>
     </View>
-    <View style={[styles.section2, styles.section2.cent]}>
-      <Text numberOfLines={3} style={styles.section2.titleMain}>
-        {title}
-      </Text>
-    </View>
-    <View style={styles.section3}>
-      <Text style={styles.section3.titleMain}>{date}</Text>
-    </View>
-  </View>
-);
+  );
+};
 
 const IndustrialVisitsList = () => {
   const [data, setData] = useState(null);
   const [isLoading, setIsLoading] = useState(true);
   const [error, setError] = useState(null);
+  const navigate = useNavigate();
 
   async function fetchData() {
     const apiUrl =
@@ -69,17 +80,25 @@ const IndustrialVisitsList = () => {
           </View>
           <FlatList
             data={data}
-            renderItem={({item, index}) => (
+            renderItem={({ item, index }) => (
               <Card
                 title={item['Industrial_Visit_Detail']['Company']}
                 date={item['Industrial_Visit_Detail']['Date']}
                 sno={index}
+                code={item['Industrial_Visit_Detail']['Code']} // Assuming 'Code' is the unique identifier
               />
             )}
             keyExtractor={(item, index) => index.toString()}
           />
         </>
       )}
+
+      {/* Add New Industrial Visit Button */}
+      <TouchableOpacity
+        style={styles.addButton}
+        onPress={() => navigate('/data/ADD NEW INDUSTRIAL VISIT')}>
+        <Icon name="plus" size={30} color="#fff" />
+      </TouchableOpacity>
     </View>
   );
 };
@@ -120,7 +139,6 @@ const styles = StyleSheet.create({
     float: 'left',
     paddingLeft: 20,
     justifyContent: 'center',
-
     title: {
       fontWeight: 'bold',
       fontFamily: 'Raleway-Bold',
@@ -151,7 +169,6 @@ const styles = StyleSheet.create({
     flex: 3,
     paddingLeft: 20,
     justifyContent: 'center',
-
     title: {
       fontWeight: 'bold',
       fontFamily: 'Raleway-Bold',
@@ -162,10 +179,22 @@ const styles = StyleSheet.create({
       fontFamily: 'Raleway-Medium',
     },
   },
-  addbutton: {
-    backgroundColor: '#00FF00',
-    width: '100%',
-    margin: '20px',
+  addButton: {
+    position: 'absolute',
+    bottom: 20,
+    right: 30,
+    backgroundColor: '#0000FF', // Dark blue for the add button
+    borderRadius: 90,
+    padding: 17,
+    alignItems: 'center',
+    justifyContent: 'center',
+    zIndex: 999,
+    shadowColor: '#000',
+    shadowOffset: { width: 0, height: 4 },
+    shadowOpacity: 0.3,
+    shadowRadius: 8,
+    elevation: 4,
   },
 });
+
 export default IndustrialVisitsList;

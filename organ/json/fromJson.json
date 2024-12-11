@@ -5435,13 +5435,13 @@
             },
             "  Date of Publication": {
                 "size": "LONG",
-                "type": "text",
+                "type": "date",
                 "placeholder": "dd-mm-yyyy",
                 "label": "Date of Publication"
             },
             "Proof of publication :": {
                 "size": "LONG",
-                "type": "file",
+                "type": "upload",
                 "placeholder": "Drag & Drop Files",
                 "label": "Proof of publication"
             }

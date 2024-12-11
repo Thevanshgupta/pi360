@@ -1,0 +1,54 @@
+{
+    "Department": "MCA",
+    "Membership_Detail": {
+        "Code": "19",
+        "Membership Details": "American Concrete Institute [ACI]",
+        "Faculty": "Ms. Sheerin Zadoo*",
+        "Member_From": "31-12-2017"
+    }
+},
+{
+    "Department": "ECE",
+    "Membership_Detail": {
+        "Code": "93",
+        "Membership Details": "Committee Student Member [Student Support Services and Amenities]",
+        "Faculty": "Dr. Suhaib Ahmed Batt",
+        "Member_From": "30-04-2021"
+    }
+},
+{
+    "Department": "EE",
+    "Membership_Detail": {
+        "Code": "101",
+        "Membership Details": "Indian society of technical education [Technical education]",
+        "Faculty": "Mr. Bhanu Pratap Singh Jamwal",
+        "Member_From": "30-03-2024"
+    }
+},
+{
+    "Department": "EE",
+    "Membership_Detail": {
+        "Code": "108",
+        "Membership Details": "Indian society of technical education [Technical education]",
+        "Faculty": "Dr. Parveen Kumar",
+        "Member_From": "30-03-2024"
+    }
+},
+{
+    "Department": "CIVIL",
+    "Membership_Detail": {
+        "Code": "40",
+        "Membership Details": "Institute of electrical and electronics Engineers [IEEE]",
+        "Faculty": "Mr. Peerzada Danish*",
+        "Member_From": "29-04-2020"
+    }
+},
+{
+    "Department": "IT",
+    "Membership_Detail": {
+        "Code": "45",
+        "Membership Details": "ETHICAL HACKING AND CYBER SECURITY [ETHICAL HACKING AND CYBER SECURITY ]",
+        "Faculty": "Ms. Veena Tripathi",
+        "Member_From": "27-02-2021"
+    }
+}

@@ -12,7 +12,7 @@ import {
   Button,
 } from 'react-native';
 import DatePicker from 'react-native-date-picker';
-import SelectBox from 'react-native-multi-selectbox';
+import SelectBox from '../customComponents/slctbox/selectbox'
 import DocumentPicker from 'react-native-document-picker';
 import {xorBy} from 'lodash';
 import axios from 'axios';

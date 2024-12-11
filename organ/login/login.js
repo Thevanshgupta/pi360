@@ -6,29 +6,33 @@ import {
   TouchableOpacity,
   Image,
   StyleSheet,
+  Dimensions,
   Alert,
 } from 'react-native';
 import Toast from 'react-native-simple-toast';
 import axios from 'axios';
-import { useNavigate } from 'react-router-native'; // Import useNavigate
+import AsyncStorage from '@react-native-async-storage/async-storage';
+import { useAuth } from '../context/AuthContext';
+import { useNavigate } from 'react-router-native';
 
 const LoginScreen = () => {
   const [email, setEmail] = useState('');
   const [password, setPassword] = useState('');
-  const navigate = useNavigate(); // Access the navigation object
-
+  const navigate = useNavigate();
+  const { login, user } = useAuth();
   // Function to handle email/password login
   const handleEmailLogin = async () => {
-    const result = await LoginLogic(email, password);
-    if (result?.token) {
-      navigate('/main'); // Navigate to MainScreen on successful login
-    }
+      const result = await LoginLogic(email, password,navigate,login);
   };
 
   // Function to handle Google login (dummy implementation)
   const signinWithGoogle = async () => {
     Alert.alert('Feature Not Implemented', 'Google login will be added soon.');
   };
+  if (user){
+    navigate("/home")
+  }
+
 
   return (
     <View style={styles.container}>
@@ -75,13 +79,13 @@ const LoginScreen = () => {
 };
 
 // Logic for API calls
-const LoginLogic = async (username, password) => {
+const LoginLogic = async (username, password,navigate,login) => {
   try {
     const response = await axios.post(
       'https://pi360.net/site/api/api_login_user.php?institute_id=mietjammu',
       {
-        username_1: username,
-        password_1: password,
+        username_1: username, //karan.cse@mietjammu.in
+        password_1: password, //22803205 access token refresh token
       },
       {
         headers: {
@@ -92,29 +96,34 @@ const LoginLogic = async (username, password) => {
 
     if (response.data.statusCode === 200) {
       Toast.show('Login Successful');
+      await AsyncStorage.setItem("authToken",response.data.token)
+      login(true);
       console.log('Login Successful:', response.data.message);
-      console.log('Token:', response.data.token); // Log token
+      console.log('Token:', response.data.token); // Using token from response
+      navigate('/')
       return response.data;
     } else {
       throw new Error(response.data.message || 'Login failed.');
     }
   } catch (error) {
-    Toast.show('Invalid credentials');
-    return null;
+    Toast.show('invalid credentials');
+    console.log(error)
+    
   }
 };
 
 // Styles
+// Styles
 const styles = StyleSheet.create({
   container: {
     flex: 1,
-    backgroundColor: '#f0f8ff',
+    backgroundColor: '#f0f8ff', // Light background
   },
   topContent: {
     flex: 2,
     paddingHorizontal: 20,
     justifyContent: 'center',
-    backgroundColor: '#87cefa',
+    backgroundColor: '#87cefa', // Light blue gradient background
     borderBottomLeftRadius: 30,
     borderBottomRightRadius: 30,
   },
@@ -204,5 +213,6 @@ const styles = StyleSheet.create({
     fontWeight: 'bold',
   },
 });
+
 
 export default LoginScreen;

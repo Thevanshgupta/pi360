@@ -84,90 +84,103 @@ const ResearchList = () => {
 
 const styles = StyleSheet.create({
     container: {
-        flex: 1,
+      flex: 1,
+      backgroundColor: '#f7f7f7', // Matches StudentAchievementsList
     },
     LoadingContainer: {
-        flex: 1,
-        alignItems: "center",
-        justifyContent: "center",
-        text: {
-            fontSize: 20,
-            fontFamily: "Raleway-Bold",
-            color: "#000"
-        }
+      flex: 1,
+      alignItems: 'center',
+      justifyContent: 'center',
+      text: {
+        fontSize: 20,
+        fontFamily: 'Raleway-Bold',
+        color: '#000',
+      },
     },
     dataCard: {
-        height: 80,
-        width: "100%",
-        flexDirection: "row",
-        borderBottomWidth: 0.5,
-        borderColor: "#ccc",
+      height: 90,
+      width: '100%',
+      flexDirection: 'row',
+      borderBottomWidth: 0.5,
+      borderColor: '#ddd',
+      backgroundColor: '#fff',
+      marginBottom: 10,
+      borderRadius: 8,
+      shadowColor: '#000',
+      shadowOffset: { width: 0, height: 1 },
+      shadowOpacity: 0.2,
+      shadowRadius: 4,
+      elevation: 2,
     },
     titleHead: {
-        height: 40,
-        width: "100%",
-        flexDirection: "row",
-        borderBottomWidth: 0.5,
-        borderColor: "#ccc",
-        fontFamily: "Raleway-Bold",
+      height: 50,
+      width: '100%',
+      flexDirection: 'row',
+      backgroundColor: '#D3D3D3',
+      borderRadius: 10,
+      marginBottom: 5,
+      alignItems: 'center',
+      justifyContent: 'space-between',
+      paddingHorizontal: 10,
     },
     section1: {
-        height: "100%",
-        flex: 1.5,
-        borderColor: "#ccc",
-        paddingLeft: 20,
-        justifyContent: "center",
-        title: {
-            fontWeight: "bold",
-            fontFamily: "Raleway-Bold",
-            color: "black"
-        }
+      flex: 1.5,
+      justifyContent: 'center',
+      paddingLeft: 15,
+      title: {
+        fontWeight: 'bold',
+        fontFamily: 'Raleway-Bold',
+        color: 'black',
+      },
     },
     section2: {
-        height: "100%",
-        flex: 10,
-        justifyContent: "center",
-        cent: {
-            alignItems: "center",
-        },
-        title: {
-            fontWeight: "bold",
-            color: "black",
-            fontFamily: "Raleway-Bold",
-        },
-        titleMain: {
-            color: "blue",
-            textTransform: "capitalize",
-            fontFamily: "Raleway-Medium",
-            textDecorationLine: 'underline',
-        }
+      flex: 6,
+      justifyContent: 'center',
+      alignItems: 'center',
+      title: {
+        fontWeight: 'bold',
+        color: 'black',
+        fontFamily: 'Raleway-Bold',
+      },
+      titleMain: {
+        color: 'blue',
+        textTransform: 'capitalize',
+        fontFamily: 'Raleway-Medium',
+        textDecorationLine: 'underline',
+      },
     },
     section3: {
-        height: "100%",
-        flex: 3,
-        paddingLeft: 20,
-        justifyContent: "center",
-        title: {
-            fontWeight: "bold",
-            fontFamily: "Raleway-Bold",
-            color: "black"
-        },
-        titleMain: {
-            color: "black",
-            fontSize: 12,
-            fontFamily: "Raleway-Medium",
-        }
+      flex: 3,
+      justifyContent: 'center',
+      paddingLeft: 10,
+      title: {
+        fontWeight: 'bold',
+        fontFamily: 'Raleway-Bold',
+        color: 'black',
+      },
+      titleMain: {
+        color: 'black',
+        fontSize: 12,
+        fontFamily: 'Raleway-Medium',
+      },
     },
     addButton: {
-        position: "absolute",
-        bottom: 30,
-        right: 30,
-        backgroundColor: "#007BFF",
-        borderRadius: 50,
-        padding: 15,
-        alignItems: "center",
-        justifyContent: "center",
-    }
-});
+      position: 'absolute',
+      bottom: 20,
+      right: 30,
+      backgroundColor: '#0000FF', // Matches StudentAchievementsList
+      borderRadius: 90,
+      padding: 17,
+      alignItems: 'center',
+      justifyContent: 'center',
+      zIndex: 999,
+      shadowColor: '#000',
+      shadowOffset: { width: 0, height: 4 },
+      shadowOpacity: 0.3,
+      shadowRadius: 8,
+      elevation: 4,
+    },
+  });
+  
 
 export default ResearchList;

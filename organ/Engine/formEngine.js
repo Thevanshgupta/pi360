@@ -1,4 +1,4 @@
-import React, { useEffect, useState, useRef } from 'react';
+import React, {useEffect, useState, useRef} from 'react';
 import {
   View,
   Text,
@@ -19,24 +19,24 @@ import {
 
 import axios from 'axios';
 
-const FormEngine = ({ formData, formName }) => {
+const FormEngine = ({formData, formName}) => {
   const [formState, setFormState] = useState({});
   const apiref = useRef('');
   const [successMessage, setSuccessMessage] = useState(''); // State for success message
 
   const handleInputChange = (fieldName, value = '#') => {
     if (value === '#') {
-      setFormState({ ...formState, ...fieldName });
+      setFormState({...formState, ...fieldName});
     } else {
-      setFormState({ ...formState, [fieldName]: value });
+      setFormState({...formState, [fieldName]: value});
     }
   };
 
   const handleSubmit = async () => {
     const missingFields = [];
-    formData.forEach((form) => {
+    formData.forEach(form => {
       if (form.name === formName) {
-        Object.keys(form.fields).forEach((fieldName) => {
+        Object.keys(form.fields).forEach(fieldName => {
           const field = form.fields[fieldName];
           if (field.required && !formState[fieldName]) {
             missingFields.push(field.label);
@@ -48,27 +48,35 @@ const FormEngine = ({ formData, formName }) => {
     if (missingFields.length > 0) {
       Alert.alert(
         'Missing Fields',
-        `Please fill the following fields: ${missingFields.join(', ')}`
+        'Please fill the following fields: ${missingFields.join(', ')}',
       );
       return;
     }
 
     const submitObject = [];
-    Object.keys(formState).map((key) => {
-      submitObject.push({ name: key, value: formState[key] });
+    Object.keys(formState).map(key => {
+      submitObject.push({name: key, value: formState[key]});
     });
+    console.log(submitObject);
     const formDataToSubmit = new FormData();
     formDataToSubmit.append('formData', JSON.stringify(submitObject)); // Convert to JSON string
-
+    console.log(submitObject);
     if (apiref.current !== '') {
       try {
-        const res = await axios.post(apiref.current, formDataToSubmit, {
-          headers: {
-            'Content-Type': 'multipart/form-data',
-          },
-        });
-        setSuccessMessage('Form submitted successfully!');
+        const res = await axios
+          .post(apiref.current, formDataToSubmit, {
+            headers: {
+              'Content-Type': 'multipart/form-data',
+            },
+          })
+          .then(res => {
+            console.log(res.data.message);
+            
+            setSuccessMessage('Form submitted successfully!');
+          });
       } catch (error) {
+        console.log(error);
+        // Handle submission error
         setSuccessMessage('Failed to submit form. Please try again.');
       }
     }
@@ -156,76 +164,179 @@ const FormEngine = ({ formData, formName }) => {
     }
   }
 
+  function renderDependencies(currentFeild, dep) {
+    if (!currentFeild.dependencies) {
+      return dep;
+    }
+
+    let val = '';
+    if (formState) {
+      if (formState[currentFeild.name]) val = formState[currentFeild.name];
+    }
+
+    currentFeild.dependencies.map((depitem, depindex) => {
+      if (
+        typeof depitem.value === 'object'
+          ? depitem.value.includes(val)
+          : val === depitem.value
+      ) {
+        dep.push(renderFeild(depitem, 'dep' + String(depindex)));
+        dep = renderDependencies(depitem, dep); // recursion!
+      } else {
+        formState[depitem.name] = '';
+      }
+    });
+    return dep;
+  }
+
+  const extractDepKeys = (currentFeild, depname) => {
+    if (!currentFeild.dependencies) {
+      return depname;
+    }
+
+    currentFeild.dependencies.map((depitem, depindex) => {
+      depname.push(depitem.name);
+      depname = renderDependencies(depitem, depname);
+    });
+    return depname;
+  };
   useEffect(() => {
     if (Object.keys(formState).length === 0) {
       let savedata = {};
-      formData.map((form) => {
+      formData.map((form, index) => {
         if (form.name === formName) {
-          Object.keys(form.fields).map((fieldName) => {
+          Object.keys(form.fields).map((fieldName, fieldIndex) => {
             let currentFeild = form.fields[fieldName];
-            savedata[currentFeild.name] =
-              currentFeild.type === 'number' ? 0 : '';
+            if (currentFeild.type === 'number') {
+              savedata[currentFeild.name] = 0;
+            } else {
+              savedata[currentFeild.name] = '';
+            }
+
+            if (currentFeild.dependencies) {
+              let depname = [];
+              const ext = extractDepKeys(currentFeild, depname);
+              console.log(ext);
+              ext.map((depitem, depindex) => {
+                savedata[depitem] = '0';
+              });
+            }
           });
+
+          console.log(savedata);
+          setFormState(savedata);
         }
-        // styling soon
       });
-      setFormState(savedata);
     }
   });
 
   return (
-    <KeyboardAvoidingView style={styles.container} behavior="padding">
-      <ScrollView contentContainerStyle={styles.scrollContent}>
-        <Text style={styles.title}>{formName}</Text>
-        {formData.map((form) => {
-          if (form.name === formName) {
-            return Object.keys(form.fields).map((fieldName, index) =>
-              renderFeild(form.fields[fieldName], index)
-            );
-          }
-        })}
-        {successMessage ? (
-          <Text style={styles.successMessage}>{successMessage}</Text>
-        ) : null}
-        <TouchableOpacity style={styles.submitButton} onPress={handleSubmit}>
-          <Text style={styles.submitButtonText}>Submit</Text>
+    <View style={styles.container} behavior={'position'}>
+      <KeyboardAvoidingView style={styles.FieldsContainer}>
+        <ScrollView
+          nestedScrollEnabled={true}
+          bounces={true}
+          style={{padding: 20, paddingBottom: 0}}>
+          {formData.map((form, index) =>
+            form.name === formName
+              ? Object.keys(form.fields).map((fieldName, fieldIndex) => {
+                  apiref.current = form.api;
+                  let currentFeild = form.fields[fieldName];
+                  let dep = [];
+                  let depFeilds = [];
+                  let RenderFeild = renderFeild(
+                    currentFeild,
+                    currentFeild.label + String(fieldIndex),
+                  );
+                  if (currentFeild.dependent ? true : false) {
+                    if (
+                      formState[currentFeild.dependentName]
+                        ? formState[currentFeild.dependentName] ===
+                          currentFeild.dependentValue
+                        : false
+                    ) {
+                      depFeilds.push(
+                        renderFeild(
+                          currentFeild,
+                          currentFeild.label + String(fieldIndex),
+                        ),
+                      );
+                    } else {
+                      formState[currentFeild.name] = '';
+                    }
+                  }
+                  if (currentFeild.dependencies) {
+                    renderDependencies(currentFeild, dep);
+                  }
+
+                  return (
+                    <React.Fragment key={fieldIndex}>
+                      {RenderFeild}
+                      {depFeilds.length !== 0 ? depFeilds : null}
+                      {dep.length !== 0
+                        ? dep.map(item => {
+                            return item;
+                          })
+                        : null}
+                    </React.Fragment>
+                  );
+                })
+              : null,
+          )}
+          <View style={{width: '100%', height: 40}}></View>
+        </ScrollView>
+      </KeyboardAvoidingView>
+      <View style={styles.SubmitButton}>
+        <TouchableOpacity
+          onPress={() => {
+            handleSubmit();
+          }}
+          style={styles.SubmitButton.button}>
+          <Text style={styles.SubmitButton.button.text}>SUBMIT</Text>
         </TouchableOpacity>
-      </ScrollView>
-    </KeyboardAvoidingView>
+      </View>
+      {successMessage ? (
+        <View style={styles.successMessageContainer}>
+          <Text style={styles.successMessageText}>{successMessage}</Text>
+        </View>
+      ) : null}
+    </View>
   );
 };
 
 const styles = StyleSheet.create({
   container: {
     flex: 1,
-    backgroundColor: '#f8f8f8',
   },
-  scrollContent: {
-    padding: 20,
+  FieldsContainer: {
+    marginBottom: 0,
+    flex: 12,
   },
-  title: {
-    fontSize: 24,
-    fontWeight: 'bold',
-    marginBottom: 20,
-    color: '#333',
-  },
-  submitButton: {
+  SubmitButton: {
+    borderTopWidth: 1,
+    borderColor: '#ccc',
+    flex: 1,
     backgroundColor: '#2D96F8',
-    padding: 15,
-    borderRadius: 5,
+    button: {
+      flex: 1,
+      alignItems: 'center',
+      justifyContent: 'center',
+      text: {
+        fontSize: 20,
+        color: 'white',
+      },
+    },
+  },
+  successMessageContainer: {
+    backgroundColor: '#00308F',
+    padding: 10,
     alignItems: 'center',
-    marginTop: 20,
-  },
-  submitButtonText: {
-    fontSize: 18,
-    color: '#fff',
-    fontWeight: 'bold',
-  },
-  successMessage: {
-    fontSize: 16,
-    color: 'green',
+    justifyContent: 'center',
     marginTop: 10,
-    textAlign: 'center',
+  },
+  successMessageText: {
+    color: 'white',
+    fontSize: 16,
   },
 });
 

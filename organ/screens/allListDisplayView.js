@@ -1,17 +1,16 @@
-import React, {useState, useEffect} from 'react';
-import {View, StyleSheet, Text, FlatList, TouchableOpacity} from 'react-native';
-import axios from 'axios';
-import ResearchList from '../dataScreens/research/researchList';
-import {useNavigate} from 'react-router-native';
+import React, { useState, useEffect } from 'react';
+import { View, StyleSheet, Text, FlatList, TouchableOpacity, ScrollView } from 'react-native';
+import { useNavigate } from 'react-router-native';
 
-const Card = ({title, path, sno}) => {
+const Card = ({ title, path }) => {
   const navigate = useNavigate();
   return (
     <TouchableOpacity
       style={styles.dataCard}
       onPress={() => {
         navigate(path);
-      }}>
+      }}
+    >
       <View style={[styles.section2, styles.section2.cent]}>
         <Text numberOfLines={3} style={styles.section2.titleMain}>
           {title}
@@ -22,41 +21,38 @@ const Card = ({title, path, sno}) => {
 };
 
 const AllListDisplayView = () => {
-  const [data, setData] = useState(null);
-  const [isLoading, setIsLoading] = useState(true);
-  const [error, setError] = useState(null);
-
   const ListScreens = [
-    {
-      name: 'Research List',
-      path: '/data/ResearchList/',
-    },
-    {
-      name: 'Research Guidance List',
-      path: '/data/researchguidanceList/',
-    },
-    {
-      name: 'Project List',
-      path: '/data/projectlist',
-     },
-    {
-      name: 'GuestLecturesList',
-      path: '/data/projectlist'
-    }
+    { name: 'Research List', path: '/data/ResearchList/' },
+    { name: 'IntellectualProperty', path: '/data/IntellectualProperty' },
+    { name: 'Project List', path: '/data/projectlist' },
+    { name: 'Consultancy List', path: '/data/ConsultancyList' },
+    { name: 'Book Publications List', path: '/data/BookPublicationsList' },
+    { name: 'Research Guidance List', path: '/data/researchguidanceList/' },
+    { name: 'Training List', path: '/data/TrainingList' },
+    { name: 'Workshop List', path: '/data/WorkshopList' },
+    { name: 'SeminarsList', path: '/data/SeminarsList' },
+    { name: 'Conference List', path: '/data/ConferenceList' },
+    { name: 'Extension Lectures List', path: '/data/ExtensionLecturesList' },
+    { name: 'Membership List', path: '/data/MembershipList' },
+    { name: 'Econtent List', path: '/data/EcontentList' },
+    { name: 'Guest Lectures List', path: '/data/GuestLecturesList' },
+    { name: 'Industrial Visits List', path: '/data/IndustrialVisitsList' },
+    { name: 'Value Added Cources List', path: '/data/ValueAddedCourcesList' },
+    { name: 'Other Activities List', path: '/data/OtherActivitiesList' },
+    { name: 'Staff Achievements List', path: '/data/StaffAchievementsList' },
+    { name: 'Student Achievements List', path: '/data/StudentAchievementsList' },
+    { name: 'Entrepreneurship List', path: '/data/EntrepreneurshipList' },
+    { name: 'Higher Studies List', path: '/data/HigherStudiesList' },
+    { name: 'Internship List', path: '/data/InternshipList' },
   ];
-
-  useEffect(() => {
-    if (!data) {
-    }
-  }, [data]);
 
   return (
     <View style={styles.container}>
-      <>
-        {ListScreens.map(data => {
-          return <Card title={data['name']} path={data['path']}></Card>;
-        })}
-      </>
+      <ScrollView contentContainerStyle={styles.scrollContainer}>
+        {ListScreens.map((data, index) => (
+          <Card key={index} title={data.name} path={data.path} />
+        ))}
+      </ScrollView>
     </View>
   );
 };
@@ -65,15 +61,8 @@ const styles = StyleSheet.create({
   container: {
     flex: 1,
   },
-  LoadingContainer: {
-    flex: 1,
-    alignItems: 'center',
-    justifyContent: 'center',
-    text: {
-      fontSize: 20,
-      fontFamily: 'Raleway-Bold',
-      color: '#000',
-    },
+  scrollContainer: {
+    paddingVertical: 10,
   },
   dataCard: {
     height: 80,
@@ -81,68 +70,21 @@ const styles = StyleSheet.create({
     flexDirection: 'row',
     borderBottomWidth: 0.5,
     borderColor: '#ccc',
-  },
-  titleHead: {
-    height: 40,
-    width: '100%',
-    flexDirection: 'row',
-    borderBottomWidth: 0.5,
-    borderColor: '#ccc',
-    fontFamily: 'Raleway-Bold',
-  },
-  section1: {
-    height: '100%',
-    flex: 0.4,
-    borderColor: '#ccc',
-    float: 'left',
-    paddingLeft: 20,
+    paddingHorizontal: 10,
     justifyContent: 'center',
-
-    title: {
-      fontWeight: 'bold',
-      fontFamily: 'Raleway-Bold',
-      color: 'black',
-    },
+    alignItems: 'center',
   },
   section2: {
-    height: '100%',
-    flex: 9,
+    flex: 1,
     justifyContent: 'center',
     paddingLeft: 20,
-
-    title: {
-      fontWeight: 'bold',
-      color: 'black',
-      fontFamily: 'Raleway-Bold',
-    },
     titleMain: {
       color: 'black',
       textTransform: 'capitalize',
       fontSize: 18,
-
       fontFamily: 'Raleway-Medium',
     },
-  },
-  section3: {
-    height: '100%',
-    flex: 3,
-    paddingLeft: 20,
-    justifyContent: 'center',
-
-    title: {
-      fontWeight: 'bold',
-      fontFamily: 'Raleway-Bold',
-      color: 'black',
-    },
-    titleMain: {
-      color: 'black',
-      fontFamily: 'Raleway-Medium',
-    },
-  },
-  addbutton: {
-    backgroundColor: '#00FF00',
-    width: '100%',
-    margin: '20px',
   },
 });
+
 export default AllListDisplayView;

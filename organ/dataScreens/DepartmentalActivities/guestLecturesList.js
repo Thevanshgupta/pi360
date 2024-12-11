@@ -1,17 +1,16 @@
-import React, {useState, useEffect} from 'react';
+import React, { useState, useEffect } from 'react';
 import {
   View,
   StyleSheet,
   Text,
   TouchableOpacity,
-  ScrollView,
   FlatList,
-  Fragment,
 } from 'react-native';
 import axios from 'axios';
-import {useNavigate} from 'react-router-native';
+import { useNavigate } from 'react-router-native';
+import Icon from 'react-native-vector-icons/FontAwesome';
 
-const Card = ({title, date, sno, code}) => {
+const Card = ({ title, date, sno, code }) => {
   const navigate = useNavigate();
   return (
     <View style={styles.dataCard}>
@@ -34,9 +33,10 @@ const Card = ({title, date, sno, code}) => {
     </View>
   );
 };
+
 const GuestLecturesList = () => {
   const [data, setData] = useState(null);
-  const [sno, setSno] = useState(1);
+  const navigate = useNavigate();
 
   async function fetchData() {
     const apiUrl =
@@ -58,26 +58,21 @@ const GuestLecturesList = () => {
       setData(404);
     }
   }
+
   useEffect(() => {
     if (data === null) {
       fetchData();
     }
-    
-    console.log(data);
   }, [data]);
 
   return (
     <View style={styles.container}>
-      {/* {data === null ? "" : data.map((s) => {
-                return ()
-            })} */}
-
       {data === null ? (
         <View style={styles.LoadingContainer}>
           <Text style={styles.LoadingContainer.text}>Loading...</Text>
         </View>
       ) : (
-        <React.Fragment>
+        <>
           <View style={styles.titleHead}>
             <View style={styles.section1}>
               <Text style={styles.section1.title}>S No.</Text>
@@ -91,19 +86,25 @@ const GuestLecturesList = () => {
           </View>
           <FlatList
             data={data}
-            renderItem={({item, index}) => (
+            renderItem={({ item, index }) => (
               <Card
-                // title={item['Patent_Details']['Project_Title']}
-                // date={item['Patent_Details']['Started_On']}
                 sno={index}
-                // code={item["Patent_Details"]["Code"]}
-                ></Card>
-                
+                title={item?.title || 'N/A'}
+                date={item?.date || 'N/A'}
+                code={item?.code || 'N/A'}
+              />
             )}
-            keyExtractor={(item, index) => index}
+            keyExtractor={(item, index) => index.toString()}
           />
-        </React.Fragment>
+        </>
       )}
+
+      {/* Add New Guest Lecture Button */}
+      <TouchableOpacity
+        style={styles.addButton}
+        onPress={() => navigate('/data/ADD NEW GUEST LECTURE')}>
+        <Icon name="plus" size={30} color="#fff" />
+      </TouchableOpacity>
     </View>
   );
 };
@@ -111,80 +112,82 @@ const GuestLecturesList = () => {
 const styles = StyleSheet.create({
   container: {
     flex: 1,
+    backgroundColor: '#f7f7f7', // Light background for better contrast
   },
   LoadingContainer: {
     flex: 1,
     alignItems: 'center',
     justifyContent: 'center',
-    text: {
-      fontSize: 20,
-      fontFamily: 'Raleway-Bold',
-      color: '#000',
-    },
   },
   dataCard: {
-    height: 80,
+    height: 90,
     width: '100%',
     flexDirection: 'row',
     borderBottomWidth: 0.5,
-    borderColor: '#ccc',
+    borderColor: '#ddd',
+    backgroundColor: '#fff',
+    marginBottom: 10,
+    borderRadius: 8,
+    shadowColor: '#000',
+    shadowOffset: { width: 0, height: 1 },
+    shadowOpacity: 0.2,
+    shadowRadius: 4,
+    elevation: 2,
   },
   titleHead: {
-    height: 40,
+    height: 50,
     width: '100%',
     flexDirection: 'row',
-    borderBottomWidth: 0.5,
-    borderColor: '#ccc',
-    fontFamily: 'Raleway-Bold',
+    backgroundColor: '#D3D3D3', // Dark grey header
+    borderRadius: 10,
+    marginBottom: 5,
+    alignItems: 'center',
+    justifyContent: 'space-between',
+    paddingHorizontal: 10,
   },
   section1: {
-    height: '100%',
-    flex: 1.3,
-    borderColor: '#ccc',
-    float: 'left',
-    paddingLeft: 20,
+    flex: 1.5,
     justifyContent: 'center',
-
-    title: {
-      fontWeight: 'bold',
-      fontFamily: 'Raleway-Bold',
-      color: 'black',
-    },
+    paddingLeft: 15,
   },
   section2: {
-    height: '100%',
-    flex: 8,
+    flex: 6,
     justifyContent: 'center',
-    cent: {
-      alignItems: 'center',
-    },
-    title: {
-      fontWeight: 'bold',
-      color: 'black',
-      fontFamily: 'Raleway-Bold',
-    },
-    titleMain: {
-      color: 'blue',
-      textTransform: 'capitalize',
-      fontFamily: 'Raleway-Medium',
-      textDecorationLine: 'underline',
-    },
+    alignItems: 'center',
   },
   section3: {
-    height: '100%',
     flex: 3,
-    paddingLeft: 20,
     justifyContent: 'center',
-
-    title: {
-      fontWeight: 'bold',
-      fontFamily: 'Raleway-Bold',
-      color: 'black',
-    },
-    titleMain: {
-      color: 'black',
-      fontFamily: 'Raleway-Medium',
-    },
+    paddingLeft: 10,
+  },
+  addButton: {
+    position: 'absolute',
+    bottom: 20,
+    right: 30,
+    backgroundColor: '#0000FF', // Dark grey for button
+    borderRadius: 90,
+    padding: 17,
+    alignItems: 'center',
+    justifyContent: 'center',
+    zIndex: 999,
+    shadowColor: '#000',
+    shadowOffset: { width: 0, height: 4 },
+    shadowOpacity: 0.3,
+    shadowRadius: 8,
+    elevation: 4,
+  },
+  addButtonText: {
+    fontSize: 24,
+    color: '#fff',
+  },
+  section2Title: {
+    fontSize: 18,
+    fontWeight: 'bold',
+    color: '#333',
+  },
+  section3Title: {
+    fontSize: 16,
+    color: '#888',
   },
 });
 
