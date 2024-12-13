@@ -22,11 +22,10 @@ const App = () => {
       <View style={styles.container}>
         <Router>
           <Routes>
-           {user?  (
-          <Route path="/" element={<MainScreen />} />
-        ) : (
-          <Route path="/" element={<LoginScreen />} />
-        )}
+           {user? <Route path="/" exact element=<MainScreen /> />
+           :
+            <Route path="/" exact element={<LoginScreen />}></Route>}
+          
             <Route
               path="/*"
               exact
