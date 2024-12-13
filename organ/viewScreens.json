@@ -47,7 +47,7 @@
         "api": "https://pi360.net/site/api/api_intellectual_property_details.php?institute_id=mietjammu&rs=",
         "feilds": {
             "Title": "Patent_Title Patent_Details",
-            "IP Type": "_Utility patent",
+            "IP Type": "_Utilitypatent",
             "Country of Filing": "_India",
             "Patent number": "Patent_Number Patent_Details",
             "Abstract": "Abstract Patent_Details",
@@ -112,7 +112,21 @@
             "Title": "ResearchTitle",
             "Abstract": "Abstract",
             "Author(s)": "Author",
-            "Status": "Status"
+            "Status": "Status",
+            "Impact Factor":"ImpactFactor",
+            "Publisher Category":"Publisher_Country Publisher_Detials",
+            "Publications":"PublishedIn",
+            "Indexed in":"IndexedIn",
+            "DOI":"DOI",
+            "Date":"Date",
+            "ISBN":"ISBN",
+            "Journal ID":"JournalID",
+            "PublishedIn":"PublishedIn",
+            "Research Status" :"Research_Status",
+            "Type":"Type",
+            "Research_Status":"Research_Status",
+            "Paper URL": "PaperURL",
+            "Acceptance Proof": "Acceptance_Proof"
         }
     },
     {

@@ -24,12 +24,14 @@ const Card = ({title, data}) => {
     </View>
   );
 };
+
 const ViewEngine = ({viewData, detailScreenName = 'StaffAchievementsDetails'}) => {
   const [data, setData] = useState(null);
   const [sno, setSno] = useState(1);
   const {id} = useParams();
   const {screenName} = useParams();
   const screenData = viewData.filter(item => item.screen === screenName)[0];
+
   async function fetchData() {
     console.log(screenData);
     let api = screenData.api;
@@ -51,12 +53,14 @@ const ViewEngine = ({viewData, detailScreenName = 'StaffAchievementsDetails'}) =
       setData(404);
     }
   }
+
   useEffect(() => {
     if (data === null) {
       fetchData();
       console.log(data);
     }
   }, [data]);
+
   return (
     <React.Fragment>
       {data === null ? (
@@ -110,6 +114,8 @@ const ViewEngine = ({viewData, detailScreenName = 'StaffAchievementsDetails'}) =
 const styles = StyleSheet.create({
   container: {
     flex: 1,
+    backgroundColor: '#f8f9fa',
+    padding: 10,
   },
   LoadingContainer: {
     flex: 1,
@@ -127,6 +133,9 @@ const styles = StyleSheet.create({
     flexDirection: 'row',
     borderBottomWidth: 0.5,
     borderColor: '#ccc',
+    backgroundColor: '#ffffff',
+    padding: 10,
+    borderRadius: 8,
   },
   titleHead: {
     height: 40,
@@ -135,6 +144,10 @@ const styles = StyleSheet.create({
     borderBottomWidth: 0.5,
     borderColor: '#ccc',
     fontFamily: 'Raleway-Bold',
+    backgroundColor: '#e9ecef',
+    paddingHorizontal: 15,
+    alignItems: 'center',
+    borderRadius: 5,
   },
   section1: {
     height: '100%',
@@ -143,11 +156,12 @@ const styles = StyleSheet.create({
     float: 'left',
     paddingLeft: 20,
     justifyContent: 'center',
-
+    
     title: {
       fontWeight: 'bold',
       fontFamily: 'Raleway-Bold',
       color: 'black',
+      fontSize: 16,
     },
   },
   section2: {
@@ -158,9 +172,10 @@ const styles = StyleSheet.create({
       alignItems: 'center',
     },
     title: {
-      fontWeight: 'bold',
+      fontWeight: '400',
       color: 'black',
-      fontFamily: 'Raleway-Bold',
+      fontFamily: 'Raleway-Medium',
+      fontSize: 14,
     },
     titleMain: {
       color: 'blue',
@@ -191,16 +206,21 @@ const styles = StyleSheet.create({
     minHeight: 80,
     flexDirection: 'row',
     borderBottomWidth: 1,
-    borderColor: '#ccc',
+    borderColor: '#dee2e6',
+    marginBottom: 10,
+    borderRadius: 8,
+    overflow: 'hidden',
+    backgroundColor: '#ffffff',
+    elevation: 2,
     section1: {
       flex: 1,
-
       borderRightWidth: 1,
-      borderColor: '#ccc',
+      borderColor: '#dee2e6',
       alignItems: 'center',
       justifyContent: 'center',
       paddingLeft: 20,
       paddingRight: 20,
+      backgroundColor: '#f1f3f5',
       title: {
         fontWeight: 'bold',
         fontFamily: 'Raleway-Bold',
@@ -216,7 +236,7 @@ const styles = StyleSheet.create({
       padding: 20,
       title: {
         fontFamily: 'Raleway-Medium',
-        color: 'black',
+        color: '#495057',
         fontSize: 14,
         textTransform: 'capitalize',
       },
@@ -226,4 +246,178 @@ const styles = StyleSheet.create({
 
 export default ViewEngine;
 
-//  note : fix SeminarsDetails json as it contains list in attended by value
+// //  note : fix SeminarsDetails json as it contains list in attended by value
+
+
+// import React, { useState, useEffect } from 'react';
+// import { View, StyleSheet, Text, ScrollView, Linking } from 'react-native';
+// import axios from 'axios';
+// import { useParams } from 'react-router-native';
+
+// // Card Component
+// const Card = ({ title, data }) => {
+//   console.log(data)
+//   const handleLinkPress = (url) => {
+//     Linking.openURL(url).catch((err) => console.error('Failed to open URL:', err));
+//   };
+
+//   const renderData = () => {
+//     // Check if the data is a valid URL and make the "Paper URL" clickable
+//     if (title === "Paper URL" && data && (data.startsWith('http://') || data.startsWith('https://'))) {
+//       return (
+//         <Text
+//           style={styles.link}
+//           onPress={() => handleLinkPress(data)}
+//         >
+//           {data}
+//         </Text>
+//       );
+//     }
+//     // Display "Acceptance Proof" as regular text (non-clickable)
+//     if (title === "Acceptance Proof") {
+//       return <Text style={styles.dataSections.section2.title}>{data}</Text>;
+//     }
+//     // For other fields, just render the data as regular text
+//     return <Text style={styles.dataSections.section2.title}>{data}</Text>;
+//   };
+
+//   return (
+//     <View style={styles.dataSections}>
+//       <View style={styles.dataSections.section1}>
+//         <Text style={styles.dataSections.section1.title}>{title}</Text>
+//       </View>
+//       <View style={styles.dataSections.section2}>
+//         {renderData()}
+//       </View>
+//     </View>
+//   );
+// };
+
+// // ViewEngine Component
+// const ViewEngine = ({ viewData, detailScreenName = 'StaffAchievementsDetails' }) => {
+//   const [data, setData] = useState(null);
+//   const { id } = useParams();
+//   const { screenName } = useParams();
+//   const screenData = viewData.filter(item => item.screen === screenName)[0];
+//   console.log(screenData)
+//   async function fetchData() {
+//     let api = screenData.api;
+//     const apiUrl = api + id;
+//     try {
+//       const response = await axios.get(apiUrl);
+//       if (response.status === 200) {
+//         console.log(response.data.content[0])
+//         setData(response.data.content[0]);
+//       } else {
+//         console.error('Error: Unable to fetch data. Status code:', response.status);
+//       }
+//     } catch (error) {
+//       setData(404);
+//     }
+//   }
+
+//   useEffect(() => {
+//     if (data === null) {
+//       fetchData();
+//     }
+//   }, [data]);
+
+//   return (
+//     <React.Fragment>
+//       {data === null ? (
+//         <View style={styles.LoadingContainer}>
+//           <Text style={styles.LoadingContainer.text}>Loading...</Text>
+//         </View>
+//       ) : data === 404 ? (
+//         <View style={styles.LoadingContainer}>
+//           <Text style={[styles.LoadingContainer.text, { color: 'red' }]}>
+//             Network Error
+//           </Text>
+//         </View>
+//       ) : (
+//         <ScrollView style={styles.container}>
+//           {Object.keys(screenData['feilds']).map((key, index) => {
+//             return (
+//               <Card
+//                 title={key}
+//                 key={index}
+//                 data={data[screenData['feilds'][key]] || ''}
+//               />
+//             );
+//           })}
+//         </ScrollView>
+//       )}
+//     </React.Fragment>
+//   );
+// };
+
+// // Styles
+// const styles = StyleSheet.create({
+//   container: {
+//     flex: 1,
+//     backgroundColor: '#f8f9fa',
+//     padding: 10,
+//   },
+//   LoadingContainer: {
+//     flex: 1,
+//     alignItems: 'center',
+//     justifyContent: 'center',
+//     text: {
+//       fontSize: 20,
+//       fontFamily: 'Raleway-Bold',
+//       color: '#000',
+//     },
+//   },
+//   dataSections: {
+//     width: '100%',
+//     minHeight: 80,
+//     flexDirection: 'row',
+//     borderBottomWidth: 1,
+//     borderColor: '#dee2e6',
+//     marginBottom: 10,
+//     borderRadius: 8,
+//     overflow: 'hidden',
+//     backgroundColor: '#ffffff',
+//     elevation: 2,
+//     section1: {
+//       flex: 1.5,
+//       borderRightWidth: 1,
+//       borderColor: '#dee2e6',
+//       alignItems: 'center',
+//       justifyContent: 'center',
+//       padding: 10,
+//       backgroundColor: '#f1f3f5',
+//       title: {
+//         fontWeight: 'bold',
+//         fontFamily: 'Raleway-Bold',
+//         color: 'black',
+//         fontSize: 14,
+//         textAlign: 'center',
+//         flexWrap: 'wrap',
+//       },
+//     },
+//     section2: {
+//       flex: 4,
+//       justifyContent: 'center',
+//       padding: 10,
+//       title: {
+//         fontFamily: 'Raleway-Medium',
+//         color: '#495057',
+//         fontSize: 14,
+//         textTransform: 'capitalize',
+//         textAlign: 'left',
+//         wordWrap: 'break-word',
+//       },
+//     },
+//   },
+//   link: {
+//     color: 'blue', // Blue color for links
+//     textDecorationLine: 'underline', // Underline the link
+//     fontFamily: 'Raleway-Medium',
+//     fontSize: 14,
+//     textTransform: 'capitalize',
+//     textAlign: 'left',
+//   },
+// });
+
+// export default ViewEngine;

@@ -11,6 +11,7 @@ import {
 import {useNavigate} from 'react-router-native';
 import Icon from 'react-native-vector-icons/FontAwesome6';
 import Sidebar from './sidebar'; // Assuming you have a Sidebar component
+import ProfileScreen from './profileScreen';
 
 const MainScreen = () => {
   const navigate = useNavigate();
@@ -39,7 +40,7 @@ const MainScreen = () => {
 
       <TouchableOpacity
         style={styles.loginButton}
-        onPress={() => navigate('/login')} // Navigate to the login screen
+        onPress={() => navigate('/profileScreen')} // Navigate to Profile screen
       >
         <Icon name="user" size={30} color="#000" />
       </TouchableOpacity>
@@ -330,7 +331,7 @@ const styles = StyleSheet.create({
     top: 20,
     right: 20,
     zIndex: 999,
-  },  
+  },
   navImgs: {
     home: {
       width: 20,

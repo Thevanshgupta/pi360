@@ -1,54 +1,144 @@
 {
-    "Department": "MCA",
-    "Membership_Detail": {
-        "Code": "19",
-        "Membership Details": "American Concrete Institute [ACI]",
-        "Faculty": "Ms. Sheerin Zadoo*",
-        "Member_From": "31-12-2017"
-    }
-},
-{
-    "Department": "ECE",
-    "Membership_Detail": {
-        "Code": "93",
-        "Membership Details": "Committee Student Member [Student Support Services and Amenities]",
-        "Faculty": "Dr. Suhaib Ahmed Batt",
-        "Member_From": "30-04-2021"
-    }
-},
-{
-    "Department": "EE",
-    "Membership_Detail": {
-        "Code": "101",
-        "Membership Details": "Indian society of technical education [Technical education]",
-        "Faculty": "Mr. Bhanu Pratap Singh Jamwal",
-        "Member_From": "30-03-2024"
-    }
-},
-{
-    "Department": "EE",
-    "Membership_Detail": {
-        "Code": "108",
-        "Membership Details": "Indian society of technical education [Technical education]",
-        "Faculty": "Dr. Parveen Kumar",
-        "Member_From": "30-03-2024"
-    }
-},
-{
-    "Department": "CIVIL",
-    "Membership_Detail": {
-        "Code": "40",
-        "Membership Details": "Institute of electrical and electronics Engineers [IEEE]",
-        "Faculty": "Mr. Peerzada Danish*",
-        "Member_From": "29-04-2020"
-    }
-},
-{
-    "Department": "IT",
-    "Membership_Detail": {
-        "Code": "45",
-        "Membership Details": "ETHICAL HACKING AND CYBER SECURITY [ETHICAL HACKING AND CYBER SECURITY ]",
-        "Faculty": "Ms. Veena Tripathi",
-        "Member_From": "27-02-2021"
-    }
+    "accountType": "admin",
+    "data": {
+        "AverageTeacherFeedbackIndex": null,
+        "Bio": "&amp;quot;Mr. Karan Khajuria is an Assistant Professor at the Model Institute of Engineering and Technology, Jammu in the Department of Computer Science &amp;amp; Engineering. He has done his Masters in Software Engineering from the Indian Institute of Information Technology(IIIT), Trichy, Tamil Nadu, and Bachelor&amp;#039;s in Computer Science &amp;amp; Engineering from Shri Mata Vaishno Devi University, Katra, Jammu &amp;amp; Kashmir. His areas of interest include AI, NLP, IoT, and Data Analytics. He has filed 4 patents at the IPTO. He is also a part of the Centre for Sofware Development(CSDIS) as a manager and Training and Placement Cell as a technical mentor. &amp;quot;",
+        "City": "175",
+        "Consultancy": [],
+        "DOB": "1992-04-13",
+        "Date_of_Joining": "",
+        "Date_of_Resignation": "",
+        "Department": null,
+        "Designation": "Assistant Professor",
+        "Experience": [],
+        "Gender": "Male",
+        "Is_Doctorate": "No",
+        "LinkedIn": "https://www.linkedin.com/in/karan-khajuria-24b24398/",
+        "PG_Institute": "Indian Institute of Information Technology Tiruchirappalli",
+        "Patents": [
+            [Object
+            ],
+            [Object
+            ],
+            [Object
+            ],
+            [Object
+            ],
+            [Object
+            ],
+            [Object
+            ]
+        ],
+        "PerformanceAcademics": {
+            "average_index": 0.6
+        },
+        "PerformanceAchievements": {
+            "average_index": 0.025
+        },
+        "PerformanceResearch": {
+            "average_index": 3.6
+        },
+        "PerformanceStaffDevelopment": {
+            "average_index": 0.365
+        },
+        "Phd_Institute": "Desh Bhagat University",
+        "ProfilePicture": "http://pi360.net/mietjammu/institute_data/records/faculty_photos/6710d0d866811.png",
+        "Projects": [
+            [Object
+            ],
+            [Object
+            ],
+            [Object
+            ],
+            [Object
+            ]
+        ],
+        "Publications": [],
+        "ResearchGate": "https://www.researchgate.net/profile/Karan_Khajuria2",
+        "ResearchGuidance": [],
+        "ResearchPapers": [
+            [Object
+            ],
+            [Object
+            ]
+        ],
+        "StaffGuestLectures": [],
+        "StaffIndustrialVisits": [],
+        "StaffOtherActivities": [
+            [Object
+            ],
+            [Object
+            ],
+            [Object
+            ],
+            [Object
+            ],
+            [Object
+            ],
+            [Object
+            ],
+            [Object
+            ],
+            [Object
+            ],
+            [Object
+            ],
+            [Object
+            ],
+            [Object
+            ],
+            [Object
+            ]
+        ],
+        "StaffSeminars": [
+            [Object
+            ],
+            [Object
+            ],
+            [Object
+            ],
+            [Object
+            ],
+            [Object
+            ]
+        ],
+        "StaffTrainings": [
+            [Object
+            ],
+            [Object
+            ],
+            [Object
+            ],
+            [Object
+            ],
+            [Object
+            ],
+            [Object
+            ],
+            [Object
+            ],
+            [Object
+            ]
+        ],
+        "StaffValueAddedCourses": [
+            [Object
+            ]
+        ],
+        "StaffWorkshops": [
+            [Object
+            ],
+            [Object
+            ]
+        ],
+        "State": "10",
+        "UG_Institute": "Shri Mata Vaishno Devi University",
+        "orcid_id": "",
+        "scopus_id": "",
+        "wos_researcher_id": ""
+    },
+    "emp_code": "355",
+    "first_login": "0",
+    "message": "Login successful",
+    "statusCode": 200,
+    "token": "eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJpc3MiOiJodHRwczovL3BpMzYwLm5ldCIsImF1ZCI6IlBpMzYwLVVzZXIiLCJpYXQiOjE3MzQwNDAwNjEsImV4cCI6MTczNDA0MzY2MSwiZGF0YSI6eyJ1c2VyY29kZSI6IjM1NSIsInVzZXJuYW1lIjoia2FyYW4uY3NlQG1pZXRqYW1tdS5pbiIsInJvbGUiOiJIT0QifX0.RvsNk-Sb_aqMNZ0r113NXBfxJ_UdlSy4tiv_8qFKXXU"
 }

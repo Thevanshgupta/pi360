@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from 'react';
+import React, { useState } from 'react';
 import {
   View,
   Text,
@@ -19,7 +19,6 @@ const Sidebar = ({ closeSidebar }) => {
   const [isAchievementsOpen, setIsAchievementsOpen] = useState(false);
   const [isAcademicsOpen, setIsAcademicsOpen] = useState(false);
   const [isNoticesOpen, setIsNoticesOpen] = useState(false);
-  
 
   const toggleResearch = () => setIsResearchOpen(!isResearchOpen);
   const toggleStaffDev = () => setIsStaffDevOpen(!isStaffDevOpen);
@@ -29,26 +28,26 @@ const Sidebar = ({ closeSidebar }) => {
   const toggleNotices = () => setIsNoticesOpen(!isNoticesOpen);
 
   const navigate = useNavigate();
-  const {logout} = useAuth()
- 
-  function handelLogOut(){
-    AsyncStorage.removeItem("authToken");
+  const { logout } = useAuth();
+
+  function handelLogOut() {
+    AsyncStorage.removeItem('authToken');
     logout();
-    navigate('/')
+    navigate('/');
   }
 
   const commonOptions = [
     { text: 'Research Publication', icon: 'book', navigateTo: '/data/ResearchList/' },
-    { text: 'Intellectual Property', icon: 'lightbulb' ,  navigateTo: '/data/IntellectualProperty/'},
-    { text: 'Projects/Grants', icon: 'hand-holding-usd',  navigateTo: '/data/projectlist/' },
-    { text: 'Consultancy/Corporate Training', icon: 'building',  navigateTo: '/data/ConsultancyList/' },
-    { text: 'Book Publication', icon: 'file-alt',  navigateTo: '/data/BookPublicationsList/'},
-    { text: 'Research Guidance', icon: 'user-graduate' , navigateTo: '/data/researchguidanceList/'},
+    { text: 'Intellectual Property', icon: 'lightbulb', navigateTo: '/data/IntellectualProperty/' },
+    { text: 'Projects/Grants', icon: 'coins', navigateTo: '/data/projectlist/' },
+    { text: 'Consultancy/Corporate Training', icon: 'building', navigateTo: '/data/ConsultancyList/' },
+    { text: 'Book Publication', icon: 'file-alt', navigateTo: '/data/BookPublicationsList/' },
+    { text: 'Research Guidance', icon: 'user-graduate', navigateTo: '/data/researchguidanceList/' },
   ];
 
   const staffDevOptions = [
-    { text: 'Training', icon: 'chalkboard-teacher', navigateTo: '/data/TrainingList/' },
-    { text: 'Workshops', icon: 'tools', navigateTo: '/data/WorkshopList/' },
+    { text: 'Training', icon: 'school', navigateTo: '/data/TrainingList/' },
+    { text: 'Workshops', icon: 'briefcase', navigateTo: '/data/WorkshopList/' },
     { text: 'Seminars', icon: 'microphone', navigateTo: '/data/SeminarsList/' },
     { text: 'Conferences', icon: 'comments', navigateTo: '/data/ConferenceList/' },
     { text: 'Extension Lectures', icon: 'chalkboard', navigateTo: '/data/ExtensionLecturesList/' },
@@ -60,7 +59,7 @@ const Sidebar = ({ closeSidebar }) => {
     { text: 'Guest Lecture', icon: 'users', navigateTo: '/data/GuestLecturesList/' },
     { text: 'Industrial Visit', icon: 'industry', navigateTo: '/data/IndustrialVisitsList/' },
     { text: 'Value-Added Courses', icon: 'graduation-cap', navigateTo: '/data/ValueAddedCourcesList/' },
-    { text: 'Activities', icon: 'tasks', navigateTo: '/data/OtherActivitiesList/' },
+    { text: 'Activities', icon: 'check-square', navigateTo: '/data/OtherActivitiesList/' },
   ];
 
   const achievementsOptions = [
@@ -70,7 +69,7 @@ const Sidebar = ({ closeSidebar }) => {
 
   const academicsOptions = [
     { text: 'Subject mapped to Student', icon: 'map', navigateTo: '/data/NewResearch/' },
-    { text: 'Manage My Subjects', icon: 'tasks', navigateTo: '/data/NewResearch/' },
+    { text: 'Manage My Subjects', icon: 'list', navigateTo: '/data/NewResearch/' },
   ];
 
   const noticesOptions = [
@@ -97,36 +96,42 @@ const Sidebar = ({ closeSidebar }) => {
             <View style={styles.titleContainer}>
               <Text style={styles.title}>MENU</Text>
             </View>
-            <ScrollView contentContainerStyle={styles.sidebarOptions}>
+            <ScrollView
+              contentContainerStyle={styles.sidebarOptions}
+              showsVerticalScrollIndicator={false} // Disable default scroll bar
+            >
               <SidebarOption icon="bell" text="Notifications" onPress={closeSidebar} />
               <SidebarOption icon="home" text="Home" onPress={closeSidebar} />
               <SidebarOption icon="chart-line" text="Institutional Dashboard" onPress={closeSidebar} />
               <SidebarOption icon="building-columns" text="Departmental Dashboard" onPress={closeSidebar} />
               <SidebarOption icon="graduation-cap" text="Student Dashboard" onPress={closeSidebar} />
-              <SidebarOption icon="trend-up" text="Trend Analysis" onPress={closeSidebar} />
+              <SidebarOption icon="bar-chart" text="Trend Analysis" onPress={closeSidebar} />
               <SidebarOption icon="file-alt" text="Reports" onPress={closeSidebar} />
               <SidebarOption icon="user-tie" text="Faculty Profile" onPress={closeSidebar} />
               <SidebarOption icon="user" text="My Profile" onPress={closeSidebar} />
-              <SidebarOption icon="user-cog" text="OBE Panel" onPress={closeSidebar} />
+              <SidebarOption icon="file-alt" text="OBE Panel" onPress={closeSidebar} />
 
               <Text style={styles.sectionTitle}>My Department</Text>
 
+              {/* Research */}
               <TouchableOpacity style={styles.accordionToggle} onPress={toggleResearch}>
-                <Icon name="layer-group" size={20} color="#fff" style={styles.icon} />
+                <Icon name="layer-group" size={20} color="#fff" />
                 <Text style={styles.optionText}>Research</Text>
                 <Icon name={isResearchOpen ? 'caret-up' : 'caret-down'} size={16} color="#fff" />
               </TouchableOpacity>
               {isResearchOpen && <View style={styles.accordionList}>{renderOptions(commonOptions)}</View>}
 
+              {/* Staff Development */}
               <TouchableOpacity style={styles.accordionToggle} onPress={toggleStaffDev}>
-                <Icon name="user-graduate" size={20} color="#fff" style={styles.icon} />
+                <Icon name="user-graduate" size={20} color="#fff" />
                 <Text style={styles.optionText}>Staff Development</Text>
                 <Icon name={isStaffDevOpen ? 'caret-up' : 'caret-down'} size={16} color="#fff" />
               </TouchableOpacity>
               {isStaffDevOpen && <View style={styles.accordionList}>{renderOptions(staffDevOptions)}</View>}
 
+              {/* Departmental Activities */}
               <TouchableOpacity style={styles.accordionToggle} onPress={toggleDeptActivities}>
-                <Icon name="building" size={20} color="#fff" style={styles.icon} />
+                <Icon name="building" size={20} color="#fff" />
                 <Text style={styles.optionText}>Departmental Activities</Text>
                 <Icon name={isDeptActivitiesOpen ? 'caret-up' : 'caret-down'} size={16} color="#fff" />
               </TouchableOpacity>
@@ -134,33 +139,38 @@ const Sidebar = ({ closeSidebar }) => {
                 <View style={styles.accordionList}>{renderOptions(deptActivitiesOptions)}</View>
               )}
 
+              {/* Achievements */}
               <TouchableOpacity style={styles.accordionToggle} onPress={toggleAchievements}>
-                <Icon name="trophy" size={20} color="#fff" style={styles.icon} />
+                <Icon name="trophy" size={20} color="#fff" />
                 <Text style={styles.optionText}>Achievements</Text>
                 <Icon name={isAchievementsOpen ? 'caret-up' : 'caret-down'} size={16} color="#fff" />
               </TouchableOpacity>
               {isAchievementsOpen && <View style={styles.accordionList}>{renderOptions(achievementsOptions)}</View>}
 
+              {/* Academics */}
               <TouchableOpacity style={styles.accordionToggle} onPress={toggleAcademics}>
-                <Icon name="graduation-cap" size={20} color="#fff" style={styles.icon} />
+                <Icon name="graduation-cap" size={20} color="#fff" />
                 <Text style={styles.optionText}>Academics</Text>
                 <Icon name={isAcademicsOpen ? 'caret-up' : 'caret-down'} size={16} color="#fff" />
               </TouchableOpacity>
               {isAcademicsOpen && <View style={styles.accordionList}>{renderOptions(academicsOptions)}</View>}
 
+              {/* Notices */}
               <TouchableOpacity style={styles.accordionToggle} onPress={toggleNotices}>
-                <Icon name="bullhorn" size={20} color="#fff" style={styles.icon} />
+                <Icon name="bullhorn" size={20} color="#fff" />
                 <Text style={styles.optionText}>Notices</Text>
                 <Icon name={isNoticesOpen ? 'caret-up' : 'caret-down'} size={16} color="#fff" />
               </TouchableOpacity>
               {isNoticesOpen && <View style={styles.accordionList}>{renderOptions(noticesOptions)}</View>}
-              <TouchableOpacity style={styles.closeButton} onPress={handelLogOut}>
-                <Icon name="times" size={16} color="#fff" />
-                <Text style={styles.closeButtonText}>Logout</Text>
-              </TouchableOpacity>
+
+              {/* Close and Logout Buttons */}
               <TouchableOpacity style={styles.closeButton} onPress={closeSidebar}>
-                <Icon name="times" size={16} color="#fff" />
+                <Icon name="window-close" size={16} color="#fff" />
                 <Text style={styles.closeButtonText}>Close</Text>
+              </TouchableOpacity>
+              <TouchableOpacity style={styles.logoutButton} onPress={handelLogOut}>
+                <Icon name="power-off" size={16} color="#fff" />
+                <Text style={styles.logoutButtonText}>Logout</Text>
               </TouchableOpacity>
             </ScrollView>
           </View>
@@ -170,13 +180,11 @@ const Sidebar = ({ closeSidebar }) => {
   );
 };
 
+// SidebarOption Component
 const SidebarOption = ({ icon, text, onPress, style, navigateTo }) => {
   const navigate = useNavigate();
-
   const handlePress = () => {
-    if (navigateTo) {
-      navigate(navigateTo);
-    }
+    if (navigateTo) navigate(navigateTo);
     onPress?.();
   };
 
@@ -195,7 +203,7 @@ const styles = StyleSheet.create({
     left: 0,
     right: 0,
     bottom: 0,
-    backgroundColor: 'rgba(0, 0, 0, 0.5)',
+    backgroundColor: 'rgba(0, 0, 0, 0.7)', // Darker overlay
     zIndex: 999,
   },
   sidebarContainer: {
@@ -204,25 +212,29 @@ const styles = StyleSheet.create({
     left: 0,
     width: '80%',
     height: '100%',
-    backgroundColor: '#1a1a1a',
+    backgroundColor: '#2C3E50', // Deep blue-gray color
     paddingHorizontal: 20,
+    paddingVertical: 20,
+    borderRightWidth: 3,
+    borderColor: '#34495E', // Slightly darker shade for border
+    zIndex: 1000,
   },
   titleContainer: {
     paddingVertical: 20,
     borderBottomWidth: 1,
-    borderColor: '#444',
+    borderColor: '#34495E',
   },
   title: {
-    fontSize: 20,
+    fontSize: 24,
     fontWeight: 'bold',
-    color: '#fff',
+    color: '#ECF0F1', // Light color for title
   },
   sidebarOptions: {
     paddingVertical: 10,
   },
   sectionTitle: {
     fontSize: 18,
-    color: '#fff',
+    color: '#ECF0F1',
     paddingVertical: 10,
     marginBottom: 5,
   },
@@ -230,9 +242,9 @@ const styles = StyleSheet.create({
     flexDirection: 'row',
     justifyContent: 'space-between',
     alignItems: 'center',
-    paddingVertical: 10,
+    paddingVertical: 15,
     borderBottomWidth: 1,
-    borderColor: '#333',
+    borderColor: '#34495E',
   },
   accordionList: {
     paddingLeft: 20,
@@ -240,24 +252,47 @@ const styles = StyleSheet.create({
   option: {
     flexDirection: 'row',
     alignItems: 'center',
-    paddingVertical: 10,
+    paddingVertical: 12,
   },
   subOption: {
     paddingLeft: 10,
   },
   optionText: {
     fontSize: 16,
-    color: '#fff',
+    color: '#ECF0F1',
     marginLeft: 10,
   },
   closeButton: {
     flexDirection: 'row',
     alignItems: 'center',
     marginTop: 20,
+    paddingHorizontal: 20,
+    paddingVertical: 10,
+    backgroundColor: '#E74C3C', // Red background color for close
+    borderRadius: 25,
+    justifyContent: 'center',
   },
   closeButtonText: {
     color: '#fff',
     marginLeft: 10,
+    fontSize: 16,
+    fontWeight: 'bold',
+  },
+  logoutButton: {
+    flexDirection: 'row',
+    alignItems: 'center',
+    marginTop: 10,
+    paddingHorizontal: 20,
+    paddingVertical: 10,
+    backgroundColor: '#3498DB', // Blue background for logout
+    borderRadius: 25,
+    justifyContent: 'center',
+  },
+  logoutButtonText: {
+    color: '#fff',
+    marginLeft: 10,
+    fontSize: 16,
+    fontWeight: 'bold',
   },
   icon: {
     marginRight: 10,

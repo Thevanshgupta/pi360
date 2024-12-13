@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useState } from 'react';
 import {
   View,
   StyleSheet,
@@ -40,16 +40,19 @@ import ValueAddedCourcesList from '../dataScreens/DepartmentalActivities/valueAd
 import GuestLecturesList from '../dataScreens/DepartmentalActivities/guestLecturesList';
 import ExtensionLecturesList from '../dataScreens/Staff Development/extensionLecturesList';
 import IntellectualProperty from '../dataScreens/IntellectualProperty/intellectualPropertyList';
+import ProfileScreen from '../MainScreen/profileScreen';
 
 const DataEntryMainPage = (props) => {
   const navigate = useNavigate();
-
+  const [topBarTitle ,setTopBarTitle] = useState('')
   return (
     <View style={styles.MainContainer}>
       {/* Top Bar */}
       <View style={styles.topBar}>
         <View style={styles.topBarSections}>
-          <TouchableOpacity onPress={() => navigate(-1)}>
+          <TouchableOpacity onPress={() => {
+            setTopBarTitle('')
+            navigate(-1)}}>
             <Image
               style={styles.backImage}
               source={require('../assets/backbtn.png')}
@@ -58,7 +61,7 @@ const DataEntryMainPage = (props) => {
         </View>
         <View style={styles.topBarSection1}>
           <View style={styles.topBarSection1.titleBar}>
-            <Text style={styles.title}>{props.title}</Text>
+            <Text style={styles.title}>{topBarTitle===''?props.title:topBarTitle}</Text>
           </View>
         </View>
         <View style={styles.topBarSections} />
@@ -66,17 +69,18 @@ const DataEntryMainPage = (props) => {
 
       {/* Screen Body */}
       <View style={styles.ScreenBody}>
-        <Routes>
+        <Routes> 
+        <Route path="/profileScreen" element={<ProfileScreen />} />
           <Route path="data/alllist/" element={<AllListDisplayView />} />
           <Route path="/researchgate" element={<ResearchGate />} />
           <Route
             path="data/ResearchForm/"
-            element={<FormEngine formName="ResearchForm" formData={formdata} />}
+            element={<FormEngine setTitle={setTopBarTitle} formName="ResearchForm" formData={formdata} />}
           />
           <Route
             path="data/ADD NEW INTELLECTUAL PROPERTY INFORMATION/"
             element={
-              <FormEngine
+              <FormEngine setTitle={setTopBarTitle}
                 formName="ADD NEW INTELLECTUAL PROPERTY INFORMATION"
                 formData={formdata}
               />
@@ -85,7 +89,7 @@ const DataEntryMainPage = (props) => {
           <Route
             path="data/ADD NEW PROJECT/GRANT INFORMATION/"
             element={
-              <FormEngine
+              <FormEngine setTitle={setTopBarTitle}
                 formName="ADD NEW PROJECT/GRANT INFORMATION"
                 formData={formdata}
               />
@@ -94,7 +98,7 @@ const DataEntryMainPage = (props) => {
           <Route
             path="data/CONSULTANCY/CORPORATE TRAINING INFORMATION/"
             element={
-              <FormEngine
+              <FormEngine setTitle={setTopBarTitle}
                 formName="CONSULTANCY/CORPORATE TRAINING INFORMATION"
                 formData={formdata}
               />
@@ -103,7 +107,7 @@ const DataEntryMainPage = (props) => {
           <Route
             path="data/ADD NEW BOOK PUBLICATION/"
             element={
-              <FormEngine
+              <FormEngine setTitle={setTopBarTitle}
                 formName="ADD NEW BOOK PUBLICATION"
                 formData={formdata}
               />
@@ -112,7 +116,7 @@ const DataEntryMainPage = (props) => {
           <Route
             path="data/ADD RESEARCH GUIDANCE/"
             element={
-              <FormEngine
+              <FormEngine setTitle={setTopBarTitle}
                 formName="ADD RESEARCH GUIDANCE"
                 formData={formdata}
               />
@@ -121,7 +125,7 @@ const DataEntryMainPage = (props) => {
           <Route
             path="data/Add e-Content/"
             element={
-              <FormEngine
+              <FormEngine setTitle={setTopBarTitle}
                 formName="Add e-Content"
                 formData={formdata}
               />
@@ -130,7 +134,7 @@ const DataEntryMainPage = (props) => {
           <Route
             path="data/ADD NEW MEMBERSHIP INFORMATION/"
             element={
-              <FormEngine
+              <FormEngine setTitle={setTopBarTitle}
                 formName="ADD NEW MEMBERSHIP INFORMATION"
                 formData={formdata}
               />
@@ -139,7 +143,7 @@ const DataEntryMainPage = (props) => {
           <Route
             path="data/ADD NEW EXTENSION LECTURES DETAILS/"
             element={
-              <FormEngine
+              <FormEngine setTitle={setTopBarTitle}
                 formName="ADD NEW EXTENSION LECTURES DETAILS"
                 formData={formdata}
               />
@@ -148,7 +152,7 @@ const DataEntryMainPage = (props) => {
           <Route
             path="data/ADD NEW CONFERENCE INFORMATION/"
             element={
-              <FormEngine
+              <FormEngine setTitle={setTopBarTitle}
                 formName="ADD NEW CONFERENCE INFORMATION"
                 formData={formdata}
               />
@@ -157,7 +161,7 @@ const DataEntryMainPage = (props) => {
           <Route
             path="data/ADD NEW SEMINAR INFORMATION/"
             element={
-              <FormEngine
+              <FormEngine setTitle={setTopBarTitle}
                 formName="ADD NEW SEMINAR INFORMATION"
                 formData={formdata}
               />
@@ -166,7 +170,7 @@ const DataEntryMainPage = (props) => {
           <Route
             path="data/ADD NEW WORKSHOP INFORMATION/"
             element={
-              <FormEngine
+              <FormEngine setTitle={setTopBarTitle}
                 formName="ADD NEW WORKSHOP INFORMATION"
                 formData={formdata}
               />
@@ -175,7 +179,7 @@ const DataEntryMainPage = (props) => {
           <Route
             path="data/ADD NEW TRAINING INFORMATION/"
             element={
-              <FormEngine
+              <FormEngine setTitle={setTopBarTitle}
                 formName="ADD NEW TRAINING INFORMATION"
                 formData={formdata}
               />
@@ -184,7 +188,7 @@ const DataEntryMainPage = (props) => {
           <Route
             path="data/ADD NEW GUEST LECTURE/"
             element={
-              <FormEngine
+              <FormEngine setTitle={setTopBarTitle}
                 formName="ADD NEW GUEST LECTURE"
                 formData={formdata}
               />
@@ -193,7 +197,7 @@ const DataEntryMainPage = (props) => {
           <Route
             path="data/ADD NEW INDUSTRIAL VISIT/"
             element={
-              <FormEngine
+              <FormEngine setTitle={setTopBarTitle}
                 formName="ADD NEW INDUSTRIAL VISIT"
                 formData={formdata}
               />
@@ -202,7 +206,7 @@ const DataEntryMainPage = (props) => {
           <Route
             path="data/STUDENTS ACHIEVEMENT/"
             element={
-              <FormEngine
+              <FormEngine setTitle={setTopBarTitle}
                 formName="STUDENTS ACHIEVEMENT"
                 formData={formdata}
               />
@@ -211,7 +215,7 @@ const DataEntryMainPage = (props) => {
           <Route
             path="data/STAFF ACHIEVEMENT/"
             element={
-              <FormEngine
+              <FormEngine setTitle={setTopBarTitle}
                 formName="STAFF ACHIEVEMENT"
                 formData={formdata}
               />

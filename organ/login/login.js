@@ -19,10 +19,10 @@ const LoginScreen = () => {
   const [email, setEmail] = useState('');
   const [password, setPassword] = useState('');
   const navigate = useNavigate();
-  const { login, user } = useAuth();
+  const { login, user,userData,setUserData } = useAuth();
   // Function to handle email/password login
   const handleEmailLogin = async () => {
-      const result = await LoginLogic(email, password,navigate,login);
+      const result = await LoginLogic(email, password,navigate,login,setUserData);
   };
 
   // Function to handle Google login (dummy implementation)
@@ -79,7 +79,7 @@ const LoginScreen = () => {
 };
 
 // Logic for API calls
-const LoginLogic = async (username, password,navigate,login) => {
+const LoginLogic = async (username, password,navigate,login,setUserData) => {
   try {
     const response = await axios.post(
       'https://pi360.net/site/api/api_login_user.php?institute_id=mietjammu',
@@ -98,6 +98,7 @@ const LoginLogic = async (username, password,navigate,login) => {
       Toast.show('Login Successful');
       await AsyncStorage.setItem("authToken",response.data.token)
       login(true);
+      setUserData(response.data.data)
       console.log('Login Successful:', response.data.message);
       console.log('Token:', response.data.token); // Using token from response
       navigate('/')

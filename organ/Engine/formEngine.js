@@ -1,4 +1,4 @@
-import React, {useEffect, useState, useRef} from 'react';
+import React, { useEffect, useState, useRef } from 'react';
 import {
   View,
   Text,
@@ -16,67 +16,84 @@ import {
   BigInputField,
   BigUploadField,
 } from '../DataEntryScreens/FeildComponents';
-
+import Toast from 'react-native-simple-toast';
 import axios from 'axios';
+import { useNavigate } from 'react-router-native';
 
-const FormEngine = ({formData, formName}) => {
+const FormEngine = ({ formData, formName, setTitle }) => {
+  setTitle(formName);
   const [formState, setFormState] = useState({});
+  const navigate = useNavigate();
+
   const apiref = useRef('');
-  const [successMessage, setSuccessMessage] = useState(''); // State for success message
+  const [successMessage, setSuccessMessage] = useState('');
 
   const handleInputChange = (fieldName, value = '#') => {
     if (value === '#') {
-      setFormState({...formState, ...fieldName});
+      setFormState({ ...formState, ...fieldName });
     } else {
-      setFormState({...formState, [fieldName]: value});
+      setFormState({ ...formState, [fieldName]: value });
     }
   };
 
   const handleSubmit = async () => {
     const missingFields = [];
+    function checkValue(feild){
+      console.log(feild.name)
+      console.log(formState[feild.name]=== "")
+      if (feild.required && (Object.keys(formState).includes(feild.name)?formState[feild.name]=== "":false)){
+        missingFields.push(feild.label)
+      }else{
+        let index = missingFields.indexOf(feild.label)
+        if (index > -1) {
+          missingFields.splice(index);
+        }
+      }
+      if (feild.dependencies){
+        feild.dependencies.map(dep=>{
+          checkValue(dep)
+        })
+        return
+      }
+    }
+    
     formData.forEach(form => {
       if (form.name === formName) {
         Object.keys(form.fields).forEach(fieldName => {
           const field = form.fields[fieldName];
-          if (field.required && !formState[fieldName]) {
-            missingFields.push(field.label);
-          }
+          checkValue(field)
         });
       }
     });
-
+    console.log(formState)
     if (missingFields.length > 0) {
       Alert.alert(
         'Missing Fields',
-        'Please fill the following fields: ${missingFields.join(', ')}',
+        `Please fill the following fields: ${missingFields.join(', ')}`,
       );
       return;
     }
-
     const submitObject = [];
     Object.keys(formState).map(key => {
-      submitObject.push({name: key, value: formState[key]});
+      submitObject.push({ name: key, value: formState[key] });
     });
     console.log(submitObject);
+
     const formDataToSubmit = new FormData();
-    formDataToSubmit.append('formData', JSON.stringify(submitObject)); // Convert to JSON string
-    console.log(submitObject);
+    formDataToSubmit.append('formData', JSON.stringify(submitObject));
+
     if (apiref.current !== '') {
       try {
-        const res = await axios
-          .post(apiref.current, formDataToSubmit, {
-            headers: {
-              'Content-Type': 'multipart/form-data',
-            },
-          })
-          .then(res => {
-            console.log(res.data.message);
-            
-            setSuccessMessage('Form submitted successfully!');
-          });
+        const res = await axios.post(apiref.current, formDataToSubmit, {
+          headers: {
+            'Content-Type': 'multipart/form-data',
+          },
+        });
+        console.log(res.data);
+        Toast.show('Form submitted successfully!');
+        navigate(-1)
       } catch (error) {
         console.log(error);
-        // Handle submission error
         setSuccessMessage('Failed to submit form. Please try again.');
       }
     }
@@ -173,17 +190,21 @@ const FormEngine = ({formData, formName}) => {
     if (formState) {
       if (formState[currentFeild.name]) val = formState[currentFeild.name];
     }
+    
 
     currentFeild.dependencies.map((depitem, depindex) => {
+      
       if (
         typeof depitem.value === 'object'
           ? depitem.value.includes(val)
           : val === depitem.value
       ) {
+        console.log(`${depitem.name}-${val}`)
+        if (!Object.keys(formState).includes(depitem.name)) formState[depitem.name] = ''
         dep.push(renderFeild(depitem, 'dep' + String(depindex)));
-        dep = renderDependencies(depitem, dep); // recursion!
+        dep = renderDependencies(depitem, dep);
       } else {
-        formState[depitem.name] = '';
+       delete formState[depitem.name]
       }
     });
     return dep;
@@ -200,6 +221,7 @@ const FormEngine = ({formData, formName}) => {
     });
     return depname;
   };
+
   useEffect(() => {
     if (Object.keys(formState).length === 0) {
       let savedata = {};
@@ -216,27 +238,26 @@ const FormEngine = ({formData, formName}) => {
             if (currentFeild.dependencies) {
               let depname = [];
               const ext = extractDepKeys(currentFeild, depname);
-              console.log(ext);
               ext.map((depitem, depindex) => {
-                savedata[depitem] = '0';
+                savedata[depitem] = '';
               });
             }
           });
 
-          console.log(savedata);
           setFormState(savedata);
         }
       });
     }
-  });
+  }, [formState, formData, formName]);
 
   return (
-    <View style={styles.container} behavior={'position'}>
+    <View style={styles.container}>
       <KeyboardAvoidingView style={styles.FieldsContainer}>
         <ScrollView
           nestedScrollEnabled={true}
           bounces={true}
-          style={{padding: 20, paddingBottom: 0}}>
+          style={{ paddingHorizontal: 10 }}>
+          <Text style={styles.formTitle}>{formName}</Text>
           {formData.map((form, index) =>
             form.name === formName
               ? Object.keys(form.fields).map((fieldName, fieldIndex) => {
@@ -267,14 +288,15 @@ const FormEngine = ({formData, formName}) => {
                   }
                   if (currentFeild.dependencies) {
                     renderDependencies(currentFeild, dep);
+                    console.log(dep)
                   }
 
                   return (
                     <React.Fragment key={fieldIndex}>
                       {RenderFeild}
-                      {depFeilds.length !== 0 ? depFeilds : null}
                       {dep.length !== 0
                         ? dep.map(item => {
+                          console.log(dep.length)
                             return item;
                           })
                         : null}
@@ -283,7 +305,7 @@ const FormEngine = ({formData, formName}) => {
                 })
               : null,
           )}
-          <View style={{width: '100%', height: 40}}></View>
+          <View style={{ width: '100%', height: 40 }}></View>
         </ScrollView>
       </KeyboardAvoidingView>
       <View style={styles.SubmitButton}>
@@ -291,15 +313,15 @@ const FormEngine = ({formData, formName}) => {
           onPress={() => {
             handleSubmit();
           }}
-          style={styles.SubmitButton.button}>
-          <Text style={styles.SubmitButton.button.text}>SUBMIT</Text>
+          style={styles.submitButtonStyle}>
+          <Text style={styles.submitButtonText}>SUBMIT</Text>
         </TouchableOpacity>
       </View>
-      {successMessage ? (
-        <View style={styles.successMessageContainer}>
-          <Text style={styles.successMessageText}>{successMessage}</Text>
+      {successMessage && (
+        <View style={styles.successMessage}>
+          <Text style={styles.successText}>{successMessage}</Text>
         </View>
-      ) : null}
+      )}
     </View>
   );
 };
@@ -307,36 +329,55 @@ const FormEngine = ({formData, formName}) => {
 const styles = StyleSheet.create({
   container: {
     flex: 1,
+    backgroundColor: '#f9f9f9',
+    padding: 10,
   },
   FieldsContainer: {
-    marginBottom: 0,
-    flex: 12,
-  },
-  SubmitButton: {
-    borderTopWidth: 1,
-    borderColor: '#ccc',
     flex: 1,
-    backgroundColor: '#2D96F8',
-    button: {
-      flex: 1,
-      alignItems: 'center',
-      justifyContent: 'center',
-      text: {
-        fontSize: 20,
-        color: 'white',
-      },
-    },
+    overflow: 'visible',
   },
-  successMessageContainer: {
-    backgroundColor: '#00308F',
-    padding: 10,
-    alignItems: 'center',
+  formTitle: {
+    fontSize: 28,
+    fontWeight: '600',
+    color: '#444',
+    marginBottom: 20,
+    textAlign: 'center',
+    paddingVertical: 8,
+    borderBottomWidth: 2,
+    borderBottomColor: '#007BFF',
+    backgroundColor: 'transparent',
+  },
+  submitButtonStyle: {
+    backgroundColor: '#007BFF',
+    paddingVertical: 12,
+    paddingHorizontal: 20,
+    borderRadius: 8,
     justifyContent: 'center',
-    marginTop: 10,
+    alignItems: 'center',
+    shadowColor: '#000',
+    shadowOffset: { width: 0, height: 2 },
+    shadowOpacity: 0.25,
+    shadowRadius: 3.5,
+    elevation: 5,
   },
-  successMessageText: {
-    color: 'white',
+  submitButtonText: {
+    color: '#fff',
+    fontSize: 18,
+    fontWeight: '500',
+  },
+  successMessage: {
+    marginTop: 20,
+    padding: 10,
+    backgroundColor: '#d4edda',
+    borderColor: '#c3e6cb',
+    borderWidth: 1,
+    borderRadius: 5,
+    alignItems: 'center',
+  },
+  successText: {
+    color: '#155724',
     fontSize: 16,
+    fontWeight: '500',
   },
 });
 

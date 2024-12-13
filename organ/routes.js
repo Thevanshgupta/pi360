@@ -14,28 +14,40 @@ import researchgate from './MainScreen/researchgate';
 
 
 const App = () => {
-  const { user } = useAuth();
-
+  const {user} = useAuth();
   return (
-    <AuthProvider>
-      <SafeAreaView style={styles.safeArea}>
-        <StatusBar barStyle="light-content" />
-        <View style={styles.container}>
-          <Router>
-            <Routes>
-              {user ? (
-                <Route path="/" element={<MainScreen />} />
-              ) : (
-                <Route path="/" element={<LoginScreen />} />
-              )}
-              <Route path="/data-entry" element={<DataEntryMainPage title="PI360" />} />
-              <Route path="/researchgate" element={<ResearchGate />} />
-              <Route path="*" element={<LoginScreen />} />
-            </Routes>
-          </Router>
-        </View>
-      </SafeAreaView>
-    </AuthProvider>
+
+    <SafeAreaView style={styles.safeArea}>
+      <StatusBar barStyle="light-content" />
+      <View style={styles.container}>
+        <Router>
+          <Routes>
+           {user? <Route path="/" exact element=<MainScreen /> />
+           :
+            <Route path="/" exact element={<LoginScreen />}></Route>}
+          
+            <Route
+              path="/*"
+              exact
+              element={<DataEntryMainPage title="PI360" />}
+            />
+            {/* <Route path="/ResearchGate" element={<ResearchGate />} /> */}
+            {/* <Route path="/researchgate" element={<ResearchGate />} /> */}
+
+            {/* <DataEntryMainPage title="Intellectual Property" screen=<ProjectDetails /> /> */}
+          </Routes>
+        </Router>
+      </View>
+      {/* <DataProvider>
+      <NavigationContainer>
+        <Stack.Navigator initialRouteName="List">
+          <Stack.Screen name="List" component={ListScreen} />
+          <Stack.Screen name="Detail" component={DetailScreen} />
+          <Stack.Screen name="Form" component={FormScreen} />
+        </Stack.Navigator>
+      </NavigationContainer>
+    </DataProvider> */}
+    </SafeAreaView>
   );
 };
 
