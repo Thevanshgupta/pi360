@@ -24,7 +24,6 @@ const App = () => {
           <Routes>
            {user? <Route path="/" exact element=<MainScreen /> />
            :
-           #vdb
             <Route path="/" exact element={<LoginScreen />}></Route>}
           
             <Route
