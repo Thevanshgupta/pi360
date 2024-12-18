@@ -11,6 +11,7 @@ import DataEntryMainPage from './DataEntryScreens/DataEntryMainPage';
 import LoginScreen from './login/login';
 import { NativeRouter as Router, Route, Routes } from 'react-router-native';
 import researchgate from './MainScreen/researchgate';
+import ProfileScreen from './MainScreen/profileScreen';
 
 
 const App = () => {
@@ -22,7 +23,7 @@ const App = () => {
       <View style={styles.container}>
         <Router>
           <Routes>
-           {user? <Route path="/" exact element=<MainScreen /> />
+           {user? <Route path="/" exact element=<ProfileScreen /> />
            :
             <Route path="/" exact element={<LoginScreen />}></Route>}
           

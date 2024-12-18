@@ -124,7 +124,6 @@
             "PublishedIn":"PublishedIn",
             "Research Status" :"Research_Status",
             "Type":"Type",
-            "Research_Status":"Research_Status",
             "Paper URL": "PaperURL",
             "Acceptance Proof": "Acceptance_Proof"
         }
@@ -280,6 +279,31 @@
             "Contact Person": "Contact_Person Placement_Detail",
             "Email ID": "EmailID Placement_Detail",
             "Annual Salary": "Annual_Salary Placement_Detail"
+        }
+    },
+    {
+        "screen": "StaffValueAddedCourses",
+        "api": "https://pi360.net/site/api/api_dept_value_added_courses_details.php?institute_id=mietjammu&rs=",
+        "feilds": {
+            "Department": "Department Department_Detail",
+            "Title": "Title Value_Added_Course_Detail",
+            "Type of Course": "Type_of_Course Value_Added_Course_Detail",
+            "Description": "Description Value_Added_Course_Detail",
+            "Venue": "Venue Value_Added_Course_Detail",
+            "Course Code": "Course_Code Value_Added_Course_Detail",
+            "Number of Students Attended": "Number_of_Students_Attended Value_Added_Course_Detail",
+            "Start Date": "Start_Date Value_Added_Course_Detail",
+            "End Date": "End_Date Value_Added_Course_Detail",
+            "Document Proof": "Document_Proof Value_Added_Course_Detail"
+        }
+    },
+    {
+        "screen": "StaffOtherActivities",
+        "api": "https://pi360.net/site/api/api_dept_other_activities_list.php?institute_id=mietjammu&rs=",
+        "feilds": {
+            "Department": "Department Department_Detail",
+            "Title": "Title Other_Activities_Detail",
+            "Date": "Date Other_Activities_Detail"
         }
     }
 ]
