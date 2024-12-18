@@ -37,6 +37,7 @@ const MainScreen = () => {
       >
         <Icon name="bars" size={30} color="#000" />
       </TouchableOpacity>
+      {sidebarVisible && <Sidebar closeSidebar={closeSidebar} />}
 
       <TouchableOpacity
         style={styles.loginButton}
@@ -44,9 +45,6 @@ const MainScreen = () => {
       >
         <Icon name="user" size={30} color="#000" />
       </TouchableOpacity>
-
-      {/* Render Sidebar when sidebarVisible is true */}
-      {sidebarVisible && <Sidebar closeSidebar={closeSidebar} />}
 
       <Text style={styles.title}>Pi360</Text>
 
