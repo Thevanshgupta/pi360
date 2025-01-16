@@ -1,4 +1,4 @@
-import React from 'react';
+import React, {useState} from 'react';
 import { AuthProvider, useAuth } from './context/AuthContext';
 import {
   SafeAreaView,
@@ -6,34 +6,48 @@ import {
   StyleSheet,
   View,
 } from 'react-native';
-import { NativeRouter as Router, Route, Routes, Navigate } from 'react-router-native';
-
 import MainScreen from './MainScreen/MainScreen';
 import DataEntryMainPage from './DataEntryScreens/DataEntryMainPage';
 import LoginScreen from './login/login';
+import { NativeRouter as Router, Route, Routes } from 'react-router-native';
+import researchgate from './MainScreen/researchgate';
 import ProfileScreen from './MainScreen/profileScreen';
 
-const App = () => {
-  const { user } = useAuth();
 
+const App = () => {
+  const {user} = useAuth();
   return (
+
     <SafeAreaView style={styles.safeArea}>
       <StatusBar barStyle="light-content" />
       <View style={styles.container}>
         <Router>
           <Routes>
-            {/* Conditional Routes Based on User Auth */}
-            {user ? (
-              <Route path="/" element={<ProfileScreen />} />
-            ) : (
-              <Route path="/" element={<LoginScreen />} />
-            )}
-            
-            {/* Fallback Route */}
-            <Route path="/*" element={<Navigate to="/" replace />} />
+           {user? <Route path="/" exact element=<ProfileScreen /> />
+           :
+            <Route path="/" exact element={<LoginScreen />}></Route>}
+          
+            <Route
+              path="/*"
+              exact
+              element={<DataEntryMainPage title="PI360" />}
+            />
+            {/* <Route path="/ResearchGate" element={<ResearchGate />} /> */}
+            {/* <Route path="/researchgate" element={<ResearchGate />} /> */}
+
+            {/* <DataEntryMainPage title="Intellectual Property" screen=<ProjectDetails /> /> */}
           </Routes>
         </Router>
       </View>
+      {/* <DataProvider>
+      <NavigationContainer>
+        <Stack.Navigator initialRouteName="List">
+          <Stack.Screen name="List" component={ListScreen} />
+          <Stack.Screen name="Detail" component={DetailScreen} />
+          <Stack.Screen name="Form" component={FormScreen} />
+        </Stack.Navigator>
+      </NavigationContainer>
+    </DataProvider> */}
     </SafeAreaView>
   );
 };
